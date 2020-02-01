@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {StudentAppointment,TutorAppointment} from '../../models/appointment'
+import {StudentAppointment} from '../../models/studentAppointment';
+import {TutorAppointment} from '../../models/tutorAppointment';
 import { DashboardService } from '../../services/dashboard/dashboard.service';
 
 @Component({
