@@ -1,4 +1,40 @@
 <div>
-    <app-navbar></app-navbar>
-    <p>dashboard works!</p>
+    <div>
+        <app-navbar></app-navbar>
+    </div>
+    <div style="display: flex;">
+        <div style="padding-top:50px;padding-left: 50px">
+            <div class="card" style="width: 18rem;min-height: 200px;">
+                <div class="card-body">
+                <h5 class="card-title">Notifications</h5>
+                <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+        <div style="padding-top:50px;padding-left: 50px">
+            <div class="card" style="width: 18rem;min-height: 200px;">
+                <div class="card-body">
+                <h5 class="card-title">Student Appointments</h5>
+                <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+                <ul>
+                    <li *ngFor="let appointment of appointments">
+                        {{appointment.name}} - {{appointment.course}} - {{appointment.subject}} - {{appointment.datetime}}
+                    </li>
+                </ul>
+                </div>
+            </div>
+        </div>
+        <div style="padding-top:50px;padding-left: 50px">
+            <div class="card" style="width: 18rem;min-height: 200px;">
+                <div class="card-body">
+                <h5 class="card-title">Mentor Appointments</h5>
+                <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
 </div>
