@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse,HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Appointment } from '../../models/appointment';
-import { Observable } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/internal/operators';
 
 
 @Injectable({
@@ -11,20 +12,39 @@ export class DashboardService {
 
   constructor(private http: HttpClient) { }
 
-  // getStudentAppointments(): Observable<HttpResponse<Appointment[]>> {
-  //   const localUrl = "";
-  //   return this.http.get<Appointment[]>(
-  //     localUrl, { observe: 'response' });
-  // }
+  getAllStudentAppointments():Observable<any> {
+    let tutor_id = 101;
+    let formData = new FormData();
+    formData.append("tutor_id","100");
 
-  getStudentAppointments():Appointment[]{
-     var appointments = [{name:"Anjana",subject:"Computer Science",course:"DSA",datetime:new Date(Date.now()).toLocaleDateString()},
-                          {name:"Vaishakhi",subject:"Computer Science",course:"Network",datetime:new Date(Date.now()).toLocaleDateString()},
-                          {name:"Santhiya",subject:"Computer Science",course:"OS",datetime:new Date(Date.now()).toLocaleDateString()},
-                          {name:"Burhaan",subject:"Computer Science",course:"OS",datetime:new Date(Date.now()).toLocaleDateString()}];
-      return appointments;
-
+    const localUrl = "http://169.234.110.139:5000/students";
+    return this.http.post(localUrl, formData);
+      // .pipe(catchError(this.errorHandler));
   }
+
+  
+  getTutorAppointments():Observable<any> {
+    let tutor_id = 101;
+    let formData = new FormData();
+    formData.append("student_id","103");
+
+    const localUrl = "http://169.234.110.139:5000/tutors";
+    return this.http.post(localUrl, formData);
+  }
+
+  sendAppointmentStatus(transaction_id:string,status:string){
+    const localUrl = "http://169.234.110.139:5000/ChangeTransactionStatus";
+    let formData = new FormData();
+    formData.append("transaction_id",transaction_id);
+    formData.append("status",status);
+    return this.http.post(localUrl,formData);
+  }
+ 
+  errorHandler(error: HttpErrorResponse) {
+    return Observable.throw(error.message || "server error.");
+  }
+
+  
 
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Appointment} from '../../models/appointment'
+import {StudentAppointment,TutorAppointment} from '../../models/appointment'
 import { DashboardService } from '../../services/dashboard/dashboard.service';
 
 @Component({
@@ -10,31 +10,80 @@ import { DashboardService } from '../../services/dashboard/dashboard.service';
 export class DashboardComponent implements OnInit {
 
   constructor(private service:DashboardService) { }
-  public appointments:Appointment[];
+  public allStudentAppointments:StudentAppointment[];
+  public studentAppointments:StudentAppointment[];
+  public tutorAppointments:TutorAppointment[];
+  public pendingStudentAppointments:StudentAppointment[];
 
   ngOnInit() {
-    // this.appointments = [{name:"Anjana",subject:"Computer Science",course:"DSA",datetime:new Date(Date.now()).toLocaleDateString()},
-    //                       {name:"Vaishakhi",subject:"Computer Science",course:"Network",datetime:new Date(Date.now()).toLocaleDateString()},
-    //                       {name:"Santhiya",subject:"Computer Science",course:"OS",datetime:new Date(Date.now()).toLocaleDateString()},
-    //                       {name:"Burhaan",subject:"Computer Science",course:"OS",datetime:new Date(Date.now()).toLocaleDateString()}];
-    // console.log(this.appointments);
-    this.getStudentAppointments();
+    this.studentAppointments=[];
+    this.pendingStudentAppointments=[];
+    this.getAllStudentAppointments();
+    this.getTutorAppointments();
   }
 
-  getStudentAppointments() {
-    this.appointments = this.service.getStudentAppointments();
-    // this.service.getStudentAppointments()
-    //   .subscribe(data => {
-    //     for (const d of (data as any)) {
-    //       this.appointments.push({
-    //         name: d.name,
-    //         subject: d.price,
-    //         course:d.course,
-    //         datetime:d.datetime
-    //       });
-    //     }
-     //   console.log(this.appointments);
-     // });
+
+  getAllStudentAppointments(){
+    this.service.getAllStudentAppointments()
+    .subscribe(data => {
+      this.allStudentAppointments = data.transactions;
+      this.studentAppointments = this.allStudentAppointments.filter(x=>x.status=="1");
+      this.studentAppointments.forEach(x=>{
+          var date = new Date(x.appointment);
+          x.appointment = date.toLocaleString();
+      });
+      this.pendingStudentAppointments = this.allStudentAppointments.filter(x=>x.status=="0");
+      this.pendingStudentAppointments.forEach(x=>{
+        var date = new Date(x.appointment);
+        x.appointment = date.toLocaleString();
+    });
+      console.log(this.pendingStudentAppointments);
+    });
   }
+
+  getTutorAppointments(){
+      this.service.getTutorAppointments()
+      .subscribe(data=>{
+        this.tutorAppointments = data.transactions;
+        this.tutorAppointments = this.tutorAppointments.filter(x=>x.status!="2");
+        this.tutorAppointments.forEach(x=>{
+          var date = new Date(x.appointment);
+          x.appointment = date.toLocaleString();
+          if(x.status=="1"){
+            x.statusStr = "Accepted";
+          } else if(x.status == "0"){
+            x.statusStr = "Pending";
+          }
+      });
+        
+      });
+  }
+
+  onClickAccept(transaction_id:string){
+    console.log("clicked accept"+transaction_id);
+    this.service.sendAppointmentStatus(transaction_id,"1").subscribe(x=>{
+      var apt = this.pendingStudentAppointments.find(y=>y.transaction_id == transaction_id);
+      if(apt.status == "1"){
+        console.log("accept success!!");
+        this.pendingStudentAppointments = this.pendingStudentAppointments.filter(y=>y.transaction_id!=transaction_id);
+      }
+
+    });
+
+  }
+
+  onClickReject(transaction_id:string){
+    console.log("clicked reject"+transaction_id);
+    this.service.sendAppointmentStatus(transaction_id,"2").subscribe(x=>{
+      var apt = this.pendingStudentAppointments.find(y=>y.transaction_id == transaction_id);
+      if(apt.status == "2"){
+        console.log("reject success!!");
+        this.pendingStudentAppointments = this.pendingStudentAppointments.filter(y=>y.transaction_id!=transaction_id);
+      }
+
+    });
+
+  }
+    
 
 }
