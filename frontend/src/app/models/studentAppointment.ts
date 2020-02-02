@@ -8,5 +8,5 @@ export interface StudentAppointment {
   student: Student;
   student_id: string;
   tutor_id: string;
-  status: string;
+  status: number;
 }

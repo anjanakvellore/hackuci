@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse,HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
+import { ProfileService } from '../profile/profile.service';
 
 
 @Injectable({
@@ -8,12 +9,14 @@ import { Observable, throwError, of } from 'rxjs';
 })
 export class DashboardService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private profileService: ProfileService) {
+    console.log(this.profileService.profileDetails)
+  }
 
   getAllStudentAppointments():Observable<any> {
-    let tutor_id = 101;
+    // let tutor_id = 101;
     let formData = new FormData();
-    formData.append("tutor_id","100");
+    formData.append("tutor_id",this.profileService.profileDetails.user_id);
 
     const localUrl = "http://169.234.110.139:5000/students";
     return this.http.post(localUrl, formData);
@@ -24,7 +27,7 @@ export class DashboardService {
   getTutorAppointments():Observable<any> {
     let tutor_id = 101;
     let formData = new FormData();
-    formData.append("student_id","103");
+    formData.append("student_id",this.profileService.profileDetails.user_id);
 
     const localUrl = "http://169.234.110.139:5000/tutors";
     return this.http.post(localUrl, formData);

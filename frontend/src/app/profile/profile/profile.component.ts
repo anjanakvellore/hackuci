@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit {
     this.profileService.getUserData(this.username).subscribe(userResp => {
       console.log(userResp);
       this.profileDetails = userResp;
+      this.profileService.saveUserData(userResp);
       this.profileService.profileDetails = userResp;
     });
   }
