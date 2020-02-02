@@ -8,27 +8,30 @@
         Notifications
       </div>
       <div *ngIf="pendingStudentAppointments == null || pendingStudentAppointments.length == 0"
-        class="card text-white bg-dark">
+           class="card text-white bg-dark">
         <div class="card-header">
           <h5 class="card-title">No notifications</h5>
         </div>
       </div>
       <ng-container *ngFor="let appointment of pendingStudentAppointments">
         <div *ngIf="pendingStudentAppointments!=null && pendingStudentAppointments.length>0"
-          class="card text-white bg-dark">
+             class="card text-white bg-dark">
           <div class="card-header">
             <h5 class="card-title">{{appointment.student.name}}</h5>
           </div>
           <div class="card-body">
             <p style="font-size: 14px;">Subject: {{appointment.course.subject.name}}</p>
             <p style="font-size: 14px;">Course: {{appointment.course.name}}</p>
-            <p style="font-size: 14px;">Date & Time: {{appointment.appointment}}</p>
+            <p style="font-size: 14px;">Date: {{appointment.appointment | date :'MMM dd, yyyy'}}</p>
             <div class="decide-btns">
-            <button type="button" class="btn btn-success" (click)="onClickAccept(appointment.transaction_id)"
-              style="font-size: 13px;">Accept</button>
+              <button (click)="onClickAccept(appointment.transaction_id)" class="btn btn-success"
+                      style="font-size: 13px;"
+                      type="button">Accept
+              </button>
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#user-modal"
-                (click)="onClickReject(appointment.transaction_id)"
-                style="font-size: 13px;">Reject</button>
+                      (click)="onClickReject(appointment.transaction_id)"
+                      style="font-size: 13px;">Reject
+              </button>
             </div>
           </div>
         </div>
@@ -108,3 +111,7 @@
     </div>
   </div>
 </div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>

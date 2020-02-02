@@ -89,8 +89,9 @@ export class ContactCardComponent implements OnInit, OnChanges {
 
   private getFormattedDate(dateString: string) {
     const date = new Date(dateString);
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     let s: string;
-    s = date.getDate() + '-' + date.getMonth() + '-' + date.getFullYear();
+    s = monthNames[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
     return s;
   }
 

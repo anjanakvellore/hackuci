@@ -30,6 +30,9 @@ export class LearnComponent implements OnInit {
 
   getAllCourses() {
     this.showLoadingIcon();
+    if (!(this.allCourses == null)) {
+      return;
+    }
     this.service.getAllCourses().subscribe(data => {
       // @ts-ignore
       this.allCourses = this.mapResultToCourses(data.courses);
@@ -40,6 +43,9 @@ export class LearnComponent implements OnInit {
 
   getAllTutors(): void {
     this.showLoadingIcon();
+    if (!(this.tutors === undefined || this.tutors == null)) {
+      return;
+    }
     this.service.getAllTutors().subscribe(data => {
       // @ts-ignore
       this.allTutors = this.mapResultToTutors(data.transactions);
@@ -75,6 +81,9 @@ export class LearnComponent implements OnInit {
   }
 
   private getTransactions(transactions: any) {
+    if (!transactions) {
+      return;
+    }
     let t: Transaction;
     let arr: Transaction[];
     arr = [];

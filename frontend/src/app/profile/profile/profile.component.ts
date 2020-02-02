@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { StudentAppointment } from 'src/app/models/studentAppointment';
-import { TutorAppointment } from 'src/app/models/tutorAppointment';
-import { ProfileDetails } from 'src/app/models/profileDetails';
-import { ProfileService } from 'src/app/services/profile/profile.service';
-import { getLocaleDateTimeFormat } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {StudentAppointment} from 'src/app/models/studentAppointment';
+import {TutorAppointment} from 'src/app/models/tutorAppointment';
+import {ProfileDetails} from 'src/app/models/profileDetails';
+import {ProfileService} from 'src/app/services/profile/profile.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-profile',
@@ -14,11 +14,12 @@ export class ProfileComponent implements OnInit {
 
   public studentAppointments: StudentAppointment[];
   public tutorAppointments: TutorAppointment[];
+  public loadingCount = 0;
 
   public profileDetails: ProfileDetails;
   username: string;
 
-  constructor(private profileService: ProfileService) {
+  constructor(private profileService: ProfileService, private SpinnerService: NgxSpinnerService) {
     this.username = 'divya2000';
     this.updateProfileData();
   }
@@ -31,18 +32,19 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  getStudentAppointments(){
-    this.profileService.getStudentAppointments().subscribe(data=>{
+  getStudentAppointments() {
+    this.showLoadingIcon();
+    this.profileService.getStudentAppointments().subscribe(data => {
       data.transactions.forEach(x => {
-        
+
         let d1 = new Date(x.appointment);
         let d2 = new Date();
-        //let same = d1 < d2;
-        console.log("d1="+d1);
-        console.log("d2="+d2);
+        // let same = d1 < d2;
+        console.log('d1=' + d1);
+        console.log('d2=' + d2);
 
-        if(d1<d2){
-          if(x.status!=-1 && x.status!=0){
+        if (d1 < d2) {
+          if (x.status !== -1 && x.status !== 0) {
             this.studentAppointments.push(x);
             // if (x.status == 1) {
             //   x.statusStr = "Accepted";
@@ -51,41 +53,41 @@ export class ProfileComponent implements OnInit {
             //   x.statusStr = "Rejected";
             // }
           }
-         
+
         }
-        
+
       });
-    })
+      this.hideLoadingIcon();
+    });
 
   }
 
-  getTutorAppointments(){
-    this.profileService.getTutorAppointments().subscribe(data=>{
+  getTutorAppointments() {
+    this.showLoadingIcon();
+    this.profileService.getTutorAppointments().subscribe(data => {
       data.transactions.forEach(x => {
-        
+
         let d1 = new Date(x.appointment);
         let d2 = new Date();
-        console.log("d1="+d1);
-        console.log("d2="+d2);
+        console.log('d1=' + d1);
+        console.log('d2=' + d2);
 
-        if(d1<d2){
-          console.log(x)
-          if(x.status!=-1 && x.status!=0){
-            if (x.status == 1) {
-              x.statusStr = "Accepted";
+        if (d1 < d2) {
+          console.log(x);
+          if (x.status !== -1 && x.status !== 0) {
+            if (x.status === 1) {
+              x.statusStr = 'Accepted';
+            } else if (x.status === 2) {
+              x.statusStr = 'Rejected';
             }
-            else if (x.status == 2) {
-              x.statusStr = "Rejected";
-            }
-            this.tutorAppointments.push(x);  
+            this.tutorAppointments.push(x);
           }
-         
+
         }
-        
+
       });
-    })
-
-
+      this.hideLoadingIcon();
+    });
   }
 
   updateProfileData() {
@@ -95,6 +97,20 @@ export class ProfileComponent implements OnInit {
       this.profileService.saveUserData(userResp);
       this.profileService.profileDetails = userResp;
     });
+  }
+
+  showLoadingIcon() {
+    if (this.loadingCount === 0) {
+      this.SpinnerService.show();
+    }
+    this.loadingCount++;
+  }
+
+  hideLoadingIcon() {
+    this.loadingCount--;
+    if (this.loadingCount === 0) {
+      this.SpinnerService.hide();
+    }
   }
 
 }
