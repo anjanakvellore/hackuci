@@ -37,7 +37,8 @@ We are
 
 ## What we learned
 * All of us were not familiar with Angular 8 and firebase DBMS. We were happy to learn and produce an exciting and complete User Interface. With Firebase DBMS, we learned the techniques associated with NoSQL and the contrasts to SQL.
-* We are also happy that we took about four hours to finalize the architecture involved and the database schema to be used. This assured that when we did face issues, it was rather programmatic and not with the basic architecture. We were also glad that we communicated our issues well and kept each other motivated throughout the hackathon.
+* We are also happy that we took about four hours to finalize the architecture involved and the database schema to be used. This assured that when we did face issues, it was rather programmatic and not with the basic architecture.
+* We were also glad that we communicated our issues well and kept each other motivated throughout the hackathon.
 
 ## What’s next for MentorConnect?
 * Add ratings to provide a genuine review of the mentor.
