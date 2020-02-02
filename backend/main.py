@@ -62,6 +62,16 @@ def getTutors():
     return {'transactions': transactions}
 
 
+@app.route('/getuser', methods=['POST'])
+def getUser():
+    username = request.form['username']
+    user_iter = db.collection('users').where('username', '==', username).stream()
+    for u in user_iter:
+        udict = u.to_dict()
+        udict['user_id'] = u.id
+        return udict
+
+
 @app.route('/allusers', methods=['GET'])
 def getAllUsers():
     user_iter = db.collection(u'users').stream()
@@ -70,7 +80,6 @@ def getAllUsers():
         udict = u.to_dict()
         udict['user_id'] = u.id
         users.append(udict)
-    
     return {'users': users}
 
 
