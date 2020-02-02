@@ -21,6 +21,21 @@ export class ProfileService {
     }
   }
 
+  getTutorAppointments():Observable<any> {
+    let formData = new FormData();
+    formData.append("student_id",this.profileDetails.user_id);
+    const localUrl = "http://169.234.110.139:5000/tutors";
+    return this.http.post(localUrl, formData);
+  }
+ 
+
+  getStudentAppointments():Observable<any> {
+    const localUrl = 'http://169.234.110.139:5000/students';
+    let formData = new FormData();
+    formData.append("tutor_id",this.profileDetails.user_id);
+    return this.http.post(localUrl,formData);
+  }
+
   public getUserData(username: string): Observable<any> {
     const localUrl = this.rootURL + '/getuser';
     const formData = new FormData();

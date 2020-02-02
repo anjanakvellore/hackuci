@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {SaveAppointment} from '../../models/saveAppointment';
 import { ProfileService } from '../profile/profile.service';
+import { StudentAppointment } from 'src/app/models/studentAppointment';
+import { TutorAppointment } from 'src/app/models/tutorAppointment';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,7 @@ export class TutorService {
     formData.append('course_id', course_id);
     formData.append('tutor_id', this.profileService.profileDetails.user_id);
     formData.append('appointment', date);
+    return this.http.post(localUrl,formData);
   }
 
   sendAppointmentStatus(saveObj: SaveAppointment) {
