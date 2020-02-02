@@ -1,4 +1,5 @@
 # MentorConnect
+Teach & Get taught!
 
 ## Inspiration
 The "Looking for a tutor" poster near ICS 193 as we were rushing to the lecture on Concurrency Programming. About the poster, it had a phone number to reach out to, if we can teach Calculus. Well, reluctant to call first of all. Awkward to talk about the hourly pays. I am willing to teach my area of expertise but I need help too. So, MentorConnect it is!
@@ -18,6 +19,7 @@ Students across the university can connect through this app. The user can be bot
 
 ## How we built it
 We set up the Database system using Firebase and used Flask to communicate. Meanwhile, we created a frontend framework to facilitate UI. We integrated the front end with the back-end. We incorporated Twilio services to facilitate the SMS. 
+![workflow](frontend/src/assets/images/MentorConnectFlow.png)
 
 ## Challenges we ran into
 * Originally, we had plans of integrating Sketch for UI/UX designs. Upon realizing that it was limited to Mac users, we decided to change our mind to use Angular 8 for the front end. It was new to all of us. Therefore, we faced several issues including integrating an engaging User Interface.
@@ -30,6 +32,8 @@ We are
 * Very satisfied with the User interface that we have come up with within the limited hours.
 * Excited that we integrated Twilio's SMS services API.
 * Proud of not giving up - when it took a couple of hours to figure out firebase DBMS, when the user interface looked crazy while multiple tutors were registered and the display couldn't be switched to portrait view, when we were running on 3 hours of sleep.
+
+![firebase](frontend/src/assets/images/firebase.png)
 
 ## What we learned
 * All of us were not familiar with Angular 8 and firebase DBMS. We were happy to learn and produce an exciting and complete User Interface. With Firebase DBMS, we learned the techniques associated with NoSQL and the contrasts to SQL.
