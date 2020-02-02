@@ -91,6 +91,7 @@ def getAllTutors():
         tdict = t.to_dict()
         tdict['transaction_id'] = t.id
         tdict['tutor'] = db.collection('users').document(str(tdict['tutor_id'])).get().to_dict()
+        tdict['course'] = db.collection('courses').document(tdict['course_id']).get().to_dict()
         tdict['appointment'] = tdict['appointment'].astimezone(pytz.timezone('US/Pacific')).isoformat()
         transactions.append(tdict)
     return {'transactions': transactions}
