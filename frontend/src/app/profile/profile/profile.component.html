@@ -2,9 +2,81 @@
   <div>
     <app-navbar></app-navbar>
   </div>
-  <div class="row" style="display: flex;padding-top:50px;padding-left: 50px;">
+  <div class="row no-gutters" style="display: flex; height: 100%; padding: 0 20px; overflow-y: auto;">
+      <div class="card text-white bg-dark col-sm-4" style="width: 18rem; margin-top: 34px;">
+        <button type="button" id="user-modal-btn" class="btn btn-outline-light" data-toggle="modal" data-target="#user-modal">
+          <i class="fas fa-random"></i>
+        </button>
+          <img src="../../../assets/profiles/{{profileDetails?.username}}.jpg" id="dp" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{profileDetails?.name}}</h5>
+            <h6 class="card-text">About</h6>
+            <p>{{profileDetails?.bio}}</p>
+            <h6 class="card-text">Major</h6>
+            <p>{{profileDetails?.major}}</p>
+            <h6 class="card-text">Hourly Pay</h6>
+            <p>{{profileDetails?.pay}}</p>
+            <h6 class="card-text">Phone Number</h6>
+            <p>{{profileDetails?.phone}}</p>
+            <h6 class="card-text">Email Id</h6>
+            <p>{{profileDetails?.mail_id}}</p>
+    
+            
+          </div>
+
+      </div>
+      
+      <div class="col-sm-4" style="margin-left: 10px;">
+        <div style="text-align: center">
+          <h5>Past Student Appointments</h5>
+        </div>
+        <div *ngIf="studentAppointments == null || studentAppointments.length == 0" class="card text-white bg-dark">
+          <div class="card-header">
+            <h5 class="card-title">No Student Appointments</h5>
+          </div>
+        </div>
+        <ng-container *ngFor="let appointment of studentAppointments">
+          <div *ngIf="studentAppointments!=null && studentAppointments.length>0" class="card text-white bg-dark" style="margin-bottom: 5px;">
+            <div class="card-header">
+              <h5 class="card-title">{{appointment.student.name}}</h5>
+            </div>
+            <div class="card-body">
+              <p style="font-size: 14px;">Subject: {{appointment.course.subject.name}}</p>
+              <p style="font-size: 14px;">Course: {{appointment.course.name}}</p>
+              <p style="font-size: 14px;">Date & Time: {{appointment.appointment}}</p>
+              <hr />
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="col-sm-4" style="margin-left: 10px">
+        <h5>Previous Mentor Appointments</h5>
+        <div *ngIf="tutorAppointments == null || tutorAppointments.length == 0" class="card text-white bg-dark">
+          <div class="card-header">
+            <h5 class="card-title">No Mentor Appointments</h5>
+          </div>
+        </div>
+        <ng-container *ngFor="let appointment of tutorAppointments">
+          <div *ngIf="tutorAppointments!=null && tutorAppointments.length>0" class="card text-white bg-dark" style="margin-bottom: 5px;">
+            <div class="card-header">
+              <h5 class="card-title">{{appointment.tutor.name}}</h5>
+            </div>
+            <div class="card-body">
+              <p style="font-size: 14px;">Subject: {{appointment.course.subject.name}}</p>
+              <p style="font-size: 14px;">Course: {{appointment.course.name}}</p>
+              <p style="font-size: 14px;">Status: {{appointment.statusStr}}</p>
+              <p style="font-size: 14px;">Date & Time: {{appointment.appointment}}</p>
+              <hr />
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+
+  <!-- <div class="row" style="display: flex;padding-top:50px;padding-left: 50px;">
     <div class="card col-sm-4" style="width: 18rem;">
-    <!-- Button trigger modal -->
+     Button trigger modal 
     <button type="button" id="user-modal-btn" class="btn btn-outline-light" data-toggle="modal" data-target="#user-modal">
       <i class="fas fa-random"></i>
     </button>
@@ -24,9 +96,9 @@
 
         
       </div>
-    </div>
+    </div> -->
 
-    <div class="card col-sm-4" style="width: 18rem;">
+    <!-- <div class="card col-sm-4" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title">Previous Student Appointments</h5>
         <div style="font-size: 12px;">
@@ -40,9 +112,9 @@
           </ul>
         </div>
       </div>
-    </div>
+    </div>  -->
 
-    <div class="card col-sm-4" style="width: 18rem;">
+    <!-- <div class="card col-sm-4" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title">Previous Mentor Appointments</h5>
         <div style="font-size: 12px;">
@@ -58,7 +130,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <!--  Username Modal -->
