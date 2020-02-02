@@ -26,8 +26,9 @@
             <div class="decide-btns">
             <button type="button" class="btn btn-success" (click)="onClickAccept(appointment.transaction_id)"
               style="font-size: 13px;">Accept</button>
-            <button type="button" class="btn btn-danger" (click)="onClickReject(appointment.transaction_id)"
-              style="font-size: 13px;">Reject</button>
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#user-modal"
+                (click)="onClickReject(appointment.transaction_id)"
+                style="font-size: 13px;">Reject</button>
             </div>
           </div>
         </div>
@@ -81,5 +82,29 @@
       </ng-container>
     </div>
 
+  </div>
+</div>
+
+<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="user-modal-label"
+  aria-hidden="true">
+  <div class="modal-dialog model-dialog-centered" role="document">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+        <h5 class="modal-title" id="user-modal-label">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> -->
+      <div class="modal-body">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Reason" aria-label="Username"
+            aria-describedby="basic-addon1" name="reason" [(ngModel)]="reason">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="onClickModalSubmit()">Submit</button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="onClickModalCancel()">Cancel</button>
+      </div>
+    </div>
   </div>
 </div>

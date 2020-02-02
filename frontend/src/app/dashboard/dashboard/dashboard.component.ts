@@ -15,6 +15,8 @@ export class DashboardComponent implements OnInit {
   public studentAppointments: StudentAppointment[];
   public tutorAppointments: TutorAppointment[];
   public pendingStudentAppointments: StudentAppointment[];
+  public currentTranscationId:string;
+  public reason:string;
 
   ngOnInit() {
     this.studentAppointments = [];
@@ -67,7 +69,8 @@ export class DashboardComponent implements OnInit {
 
   onClickAccept(transaction_id: string) {
     console.log('clicked accept' + transaction_id);
-    this.service.sendAppointmentStatus(transaction_id, '1').subscribe(x => {
+    this.currentTranscationId = transaction_id;
+    this.service.sendAppointmentStatus(this.currentTranscationId, '1').subscribe(x => {
         this.pendingStudentAppointments = this.pendingStudentAppointments.filter(y => y.transaction_id !== transaction_id);
 
     });
@@ -75,12 +78,31 @@ export class DashboardComponent implements OnInit {
   }
 
   onClickReject(transaction_id: string) {
+    this.currentTranscationId = transaction_id;
     console.log('clicked reject' + transaction_id);
-    this.service.sendAppointmentStatus(transaction_id, '2').subscribe(x => {
-        this.pendingStudentAppointments = this.pendingStudentAppointments.filter(y => y.transaction_id !== transaction_id);
+    // this.service.sendAppointmentStatus(transaction_id, '2').subscribe(x => {
+    //     this.pendingStudentAppointments = this.pendingStudentAppointments.filter(y => y.transaction_id !== transaction_id);
+
+    // });
+
+  }
+
+  onClickModalSubmit() {
+    console.log('clicked modal submit' + this.currentTranscationId);
+    //console.log(this.reason);
+    
+    this.service.sendAppointmentStatus(this.currentTranscationId, '2',this.reason).subscribe(x => {
+        this.pendingStudentAppointments = this.pendingStudentAppointments.filter(y => y.transaction_id !== this.currentTranscationId);
 
     });
 
+    this.reason = ''
+
+  }
+
+  onClickModalCancel(){
+    console.log('clicked modal cancel');
+    this.reason = ''
   }
 
 

@@ -33,11 +33,19 @@ export class DashboardService {
     return this.http.post(localUrl, formData);
   }
 
-  sendAppointmentStatus(transaction_id:string,status:string){
-    const localUrl = "http://169.234.106.134:5000/ChangeTransactionStatus";
+  sendAppointmentStatus(transaction_id:string,status:string,reason?:string){
     let formData = new FormData();
     formData.append("transaction_id",transaction_id);
     formData.append("status",status);
+    if(reason!=null){
+      console.log(reason);
+      formData.append("reason",reason);
+    }
+    else{
+      console.log('empty reason');
+    }
+    const localUrl = "http://169.234.106.134:5000/ChangeTransactionStatus";
+    
     return this.http.post(localUrl,formData);
   }
  
