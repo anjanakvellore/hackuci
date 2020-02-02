@@ -64,7 +64,6 @@ export class TutorComponent implements OnInit {
 
   onRowClick(index: number) {
     console.log('row click triggered');
-    // debugger
     this.selectedRow = index;
     console.log(this.selectedRow);
   }

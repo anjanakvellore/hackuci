@@ -27,8 +27,6 @@ export class DashboardComponent implements OnInit {
   getAllStudentAppointments() {
     this.service.getAllStudentAppointments()
     .subscribe(data => {
-      // tslint:disable-next-line:no-debugger
-      debugger;
       console.log('all appointments', data);
       this.allStudentAppointments = data.transactions;
       console.log(this.allStudentAppointments);
