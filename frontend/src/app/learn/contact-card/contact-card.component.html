@@ -3,7 +3,7 @@
   <div>
     <div class="contact-box center-version text-white bg-dark">
       <a style="background: inherit;">
-      <img alt="image" class="img-circle" src="../../../assets/profiles/{{tutorInfo.username}}.jpg">
+        <img alt="image" class="img-circle" src="../../../assets/profiles/{{tutorInfo.username}}.jpg">
         <h3 class="m-b-xs"><strong>{{tutorInfo.name}}</strong></h3>
         <h5>{{tutorInfo.username}}</h5>
         <div class="font-bold">Offers: {{tutorInfo.courseName}}</div>
@@ -11,10 +11,10 @@
         <i>{{tutorInfo.bio}}</i>
       </a>
       <div class="contact-box-footer">
-          <button (click)="open(bookMentorModal)" class="btn btn-success">
-            <i class="fa fa-paper-plane"></i>
-            Book Appointment
-          </button>
+        <button (click)="open(bookMentorModal)" class="btn btn-success">
+          <i class="fa fa-paper-plane"></i>
+          Book Appointment
+        </button>
       </div>
     </div>
   </div>
@@ -51,3 +51,4 @@
     <button (click)="modal.dismiss()" class="btn btn-outline-dark" type="button">Cancel</button>
   </div>
 </ng-template>
+

@@ -2,6 +2,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {Tutor} from '../../models/tutor';
 import {Course} from '../../models/course';
 import {TutorDisplayData} from '../../models/tutorDisplayData';
+import {ProfileService} from 'src/app/services/profile/profile.service';
 
 
 @Pipe({
@@ -10,13 +11,20 @@ import {TutorDisplayData} from '../../models/tutorDisplayData';
 })
 export class TutorFilterPipe implements PipeTransform {
 
+  constructor(private profileService: ProfileService) {
+  }
+
   transform(items: Tutor[], nameFilter: string, courseFilter: Course[]): TutorDisplayData[] {
-    if (!items || (!nameFilter && !courseFilter)) {
+    if (!(items)) {
       return items;
     }
-    // filter items array, items which match and return true will be
-    // kept, false will be filtered out\
-
+    if (this.profileService != null) {
+      // @ts-ignore
+      items = items.filter(item => item.id !== this.profileService.profileDetails.user_id);
+    }
+    if (!nameFilter && !courseFilter) {
+      return items;
+    }
     if (nameFilter) {
       items = items.filter(item => item.name.toLowerCase().includes(nameFilter.toLowerCase())
         || item.username.toLowerCase().includes(nameFilter.toLowerCase()));

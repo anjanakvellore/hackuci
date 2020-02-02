@@ -5,6 +5,7 @@ import {Course} from '../../models/course';
 import {TutorDisplayData} from '../../models/tutorDisplayData';
 import {IDropdownSettings} from 'ng-multiselect-dropdown';
 import {Transaction} from '../../models/transaction';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-learn',
@@ -21,20 +22,24 @@ export class LearnComponent implements OnInit {
   private allTransactions: Transaction[];
   private dropdownSettings: IDropdownSettings;
   private selectedItems: Course[];
+  loadingCount = 0;
 
 
-  constructor(private service: LearnService) {
+  constructor(private service: LearnService, private SpinnerService: NgxSpinnerService) {
   }
 
   getAllCourses() {
+    this.showLoadingIcon();
     this.service.getAllCourses().subscribe(data => {
       // @ts-ignore
       this.allCourses = this.mapResultToCourses(data.courses);
       this.taskCourse = true;
+      this.hideLoadingIcon();
     });
   }
 
   getAllTutors(): void {
+    this.showLoadingIcon();
     this.service.getAllTutors().subscribe(data => {
       // @ts-ignore
       this.allTutors = this.mapResultToTutors(data.transactions);
@@ -42,6 +47,7 @@ export class LearnComponent implements OnInit {
       this.allTransactions = this.getTransactions(data.transactions);
       this.tutors = this.allTutors;
       this.taskTutors = true;
+      this.hideLoadingIcon();
     });
   }
 
@@ -102,6 +108,20 @@ export class LearnComponent implements OnInit {
     return courses;
   }
 
+  showLoadingIcon() {
+    if (this.loadingCount === 0) {
+      this.SpinnerService.show();
+    }
+    this.loadingCount++;
+  }
+
+  hideLoadingIcon() {
+    this.loadingCount--;
+    if (this.loadingCount === 0) {
+      this.SpinnerService.hide();
+    }
+  }
+
   private mapResultToTutors(transactions: any): TutorDisplayData[] {
     if (transactions == null) {
       return null;
@@ -120,10 +140,7 @@ export class LearnComponent implements OnInit {
         courseName: obj.course.name
       };
       const find = tutors.find(value => {
-        if (value.id === modal.id && value.courseId === modal.courseId) {
-          return true;
-        }
-        return false;
+        return value.id === modal.id && value.courseId === modal.courseId;
       });
       if (find === undefined) {
         tutors.push(modal);
