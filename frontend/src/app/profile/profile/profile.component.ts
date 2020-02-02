@@ -1,8 +1,17 @@
+<<<<<<< HEAD
 import {Component, OnInit} from '@angular/core';
 import {StudentAppointment} from 'src/app/models/studentAppointment';
 import {TutorAppointment} from 'src/app/models/tutorAppointment';
 import {ProfileDetails} from 'src/app/models/profileDetails';
 import {ProfileService} from 'src/app/services/profile/profile.service';
+=======
+import { Component, OnInit } from '@angular/core';
+import { StudentAppointment } from 'src/app/models/studentAppointment';
+import { TutorAppointment } from 'src/app/models/tutorAppointment';
+import { ProfileDetails } from 'src/app/models/profileDetails';
+import { ProfileService } from 'src/app/services/profile/profile.service';
+import { getLocaleDateTimeFormat } from '@angular/common';
+>>>>>>> 263703c3b45be8e9710dbfcbae2eaf3c87aabec2
 import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
@@ -14,12 +23,20 @@ export class ProfileComponent implements OnInit {
 
   public studentAppointments: StudentAppointment[];
   public tutorAppointments: TutorAppointment[];
+<<<<<<< HEAD
   public loadingCount = 0;
+=======
+  public loadingCount:number = 0;
+>>>>>>> 263703c3b45be8e9710dbfcbae2eaf3c87aabec2
 
   public profileDetails: ProfileDetails;
   username: string;
 
+<<<<<<< HEAD
   constructor(private profileService: ProfileService, private SpinnerService: NgxSpinnerService) {
+=======
+  constructor(private profileService: ProfileService,private SpinnerService: NgxSpinnerService) {
+>>>>>>> 263703c3b45be8e9710dbfcbae2eaf3c87aabec2
     this.username = 'divya2000';
     this.updateProfileData();
   }
@@ -32,9 +49,15 @@ export class ProfileComponent implements OnInit {
   }
 
 
+<<<<<<< HEAD
   getStudentAppointments() {
     this.showLoadingIcon();
     this.profileService.getStudentAppointments().subscribe(data => {
+=======
+  getStudentAppointments(){
+    this.showLoadingIcon();
+    this.profileService.getStudentAppointments().subscribe(data=>{
+>>>>>>> 263703c3b45be8e9710dbfcbae2eaf3c87aabec2
       data.transactions.forEach(x => {
 
         let d1 = new Date(x.appointment);
@@ -58,6 +81,7 @@ export class ProfileComponent implements OnInit {
 
       });
       this.hideLoadingIcon();
+<<<<<<< HEAD
     });
 
   }
@@ -65,6 +89,15 @@ export class ProfileComponent implements OnInit {
   getTutorAppointments() {
     this.showLoadingIcon();
     this.profileService.getTutorAppointments().subscribe(data => {
+=======
+    })
+
+  }
+
+  getTutorAppointments(){
+    this.showLoadingIcon();
+    this.profileService.getTutorAppointments().subscribe(data=>{
+>>>>>>> 263703c3b45be8e9710dbfcbae2eaf3c87aabec2
       data.transactions.forEach(x => {
 
         let d1 = new Date(x.appointment);
@@ -82,6 +115,15 @@ export class ProfileComponent implements OnInit {
             }
             this.tutorAppointments.push(x);
           }
+<<<<<<< HEAD
+=======
+         
+        }
+        
+      });
+      this.hideLoadingIcon();
+    })
+>>>>>>> 263703c3b45be8e9710dbfcbae2eaf3c87aabec2
 
         }
 
