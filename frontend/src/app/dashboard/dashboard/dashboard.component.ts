@@ -63,11 +63,7 @@ export class DashboardComponent implements OnInit {
   onClickAccept(transaction_id:string){
     console.log("clicked accept"+transaction_id);
     this.service.sendAppointmentStatus(transaction_id,"1").subscribe(x=>{
-      var apt = this.pendingStudentAppointments.find(y=>y.transaction_id == transaction_id);
-      if(apt.status == "1"){
-        console.log("accept success!!");
         this.pendingStudentAppointments = this.pendingStudentAppointments.filter(y=>y.transaction_id!=transaction_id);
-      }
 
     });
 
@@ -76,11 +72,7 @@ export class DashboardComponent implements OnInit {
   onClickReject(transaction_id:string){
     console.log("clicked reject"+transaction_id);
     this.service.sendAppointmentStatus(transaction_id,"2").subscribe(x=>{
-      var apt = this.pendingStudentAppointments.find(y=>y.transaction_id == transaction_id);
-      if(apt.status == "2"){
-        console.log("reject success!!");
         this.pendingStudentAppointments = this.pendingStudentAppointments.filter(y=>y.transaction_id!=transaction_id);
-      }
 
     });
 

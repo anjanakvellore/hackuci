@@ -1,4 +1,56 @@
 <div>
-    <app-navbar></app-navbar>
-    <p>profile works!</p>
+    <div>
+        <app-navbar></app-navbar>
+    </div>
+    <div class="row" style="display: flex;padding-top:50px;padding-left: 50px;">
+        <div class="card col-sm-4" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <h6 class="card-text">About</h6>
+                <p>Bio</p>
+              <h6 class="card-text">Major</h6>
+                <p>Software Engineering</p>
+              <h6 class="card-text">Hourly Pay</h6>
+                <p>$40</p>
+              <h6 class="card-text">Phone Number</h6>
+                <p>+1(949)-999-99990</p>
+              <h6 class="card-text">Email Id</h6>
+                <p>xyz@uci.edu</p>
+            </div>
+          </div>
+
+          <div class="card col-sm-4" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Previous Student Appointments</h5>
+              <div style="font-size: 12px;">
+                <ul>
+                    <li *ngFor="let appointment of studentAppointments">
+                        Name:{{appointment.student.name}} <br/>
+                        Subject: {{appointment.course.subject.name}} <br/>
+                        Course: {{appointment.course.name}} <br/>
+                        Date & Time: {{appointment.appointment}}
+                    </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="card col-sm-4" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Previous Mentor Appointments</h5>
+              <div style="font-size: 12px;">
+                <ul>
+                    <li *ngFor="let appointment of tutorAppointments">
+                        Name: {{appointment.tutor.name}} <br/>
+                        Subject: {{appointment.course.subject.name}} <br/>
+                        Course: {{appointment.course.name}} <br/>
+                        Status: {{appointment.statusStr}}<br/>
+                        Date & Time: {{appointment.appointment}} <br/>
+                    </li>
+                </ul>
+                </div>
+            </div>
+          </div>
+    </div>
 </div>
