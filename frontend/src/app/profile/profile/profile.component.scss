@@ -1,3 +1,16 @@
+
+.display-4 {
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1.2;
+    text-align: center;
+    padding: 10px;
+}
+
+.col-sm-4 {
+    padding: 10px;
+}
+
 #user-modal-btn {
     display: inline-block;
     width: fit-content;
@@ -5,7 +18,34 @@
 
 #dp {
     max-height: 200px;
-    max-width: 200px;
-    border-radius: 50%;
+    // max-width: 200px;
+    // border-radius: 50%;
     object-fit: cover;
+}
+
+// .card-header {
+//     padding-bottom: 0;
+// }
+// .card-body {
+//     padding-top: 0;
+// }
+// p {
+//     margin-bottom: 0.25rem;
+// }
+
+.log-col {
+    .card {
+        margin-bottom: 10px;
+        height: 170px;
+    }
+
+    .card-header {
+        padding-bottom: 0;
+    }
+    .card-body {
+        padding-top: 0;
+    }
+    p {
+        margin-bottom: 0.25rem;
+    }
 }
