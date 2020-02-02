@@ -1,55 +1,57 @@
-<div>
-  <div>
+<div class="h-100">
+  <div style="height: 90px;">
     <app-navbar></app-navbar>
   </div>
-  <div>
-    <div style="padding-top: 15px; padding-left: 25px;">
-      <div class="row" style="text-align: center;">
+  <div style="height: calc(100% - 90px);">
+    <div style="padding: 0 60px">
+      <div class="row no-gutters" style="text-align: center;">
         <div class="col-sm-4">
-          Subjects
+          <div class="display-4">Subjects</div>
         </div>
         <div class="col-sm-4">
-          Courses
+          <div class="display-4">Courses</div>
         </div>
         <div class="col-sm-4">
-          Availability
+          <div class="display-4">Availability</div>
         </div>
       </div>
     </div>
-    <form style="padding: 10 px;">
+    <form style="height: calc(100% - 215px); overflow-y: auto;">
       <ng-container *ngFor="let row of mentorAvailability;let i=index">
-        <div class="row" *ngIf="!row.deleted" style="padding: 10px;" (click)="onRowClick(i)">
-          <div class="form-group" class=col-sm-4>
+        <div (click)="onRowClick(i)" *ngIf="!row.deleted"
+             class="row no-gutters" style="display: flex; height: fit-content; padding: 0 60px; overflow-y: auto;">
+          <div class="form-group col-sm-4">
             <!-- <label for="subjects">Subjects</label> -->
             <select class="form-control" id="subjects" [(ngModel)]="mentorAvailability[i].selectedSubject"
-              name="subjects-{{i}}" (change)="onSubjectChange()">
+                    (change)="onSubjectChange()" name="subjects-{{i}}">
               <option [ngValue]="undefined">Select a subject</option>
               <option *ngFor="let subject of subjectCourseMap" [ngValue]="subject">{{subject.name}}
               </option>
             </select>
           </div>
-          <div class="form-group" class="col-sm-4">
+          <div class="form-group col-sm-4">
             <!-- <label for="courses">Courses</label> -->
             <select class="form-control" id="courses" [(ngModel)]="mentorAvailability[i].selectedCourse"
-              name="courses-{{i}}">
+                    name="courses-{{i}}">
               <option [ngValue]="undefined">Select a course</option>
               <option *ngFor="let course of mentorAvailability[i].courseList" [ngValue]="course">
                 {{course.name}}</option>
             </select>
           </div>
-          <div class="form-group col-sm-4">
-            <input type="date" name="fromDate-{{i}}" (change)="fromDateChange($event)"/> To
-            <input type="date" name="toDate-{{i}}" (change)="toDateChange($event)"/>
+          <div class="form-group col-sm-4" style="text-align: center;">
+            <input (change)="fromDateChange($event)" class="form-control" name="fromDate-{{i}}"
+                   style="width: fit-content; display: inline-block;" type="date"/> <span
+            style="margin: 0 4px;">To</span>
+            <input (change)="toDateChange($event)" class="form-control" name="toDate-{{i}}"
+                   style="width: fit-content; display: inline-block;" type="date"/>
           </div>
         </div>
       </ng-container>
     </form>
-    <div class="row" style="padding: 25px;">
-      <div class="btn-group btn-group-sm" role="group">
-        <button id="btnAdd" class="btn btn-info btn-sm" (click)="onAddBtnClick()">Add</button>
-        <button id="btnDelete" class="btn btn-info btn-sm" (click)="onDeleteBtnClick()">Delete</button>
-        <button id="btnSubmit" class="btn btn-info btn-sm" (click)="onSubmitButtonClick()">Submit</button>
-      </div>
+    <div id="btns">
+      <button (click)="onAddBtnClick()" class="btn btn-primary" id="btnAdd">Add</button>
+      <button (click)="onDeleteBtnClick()" class="btn btn-danger" id="btnDelete">Delete</button>
+      <button (click)="onSubmitButtonClick()" class="btn btn-success" id="btnSubmit">Submit</button>
     </div>
   </div>
 </div>
