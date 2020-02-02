@@ -5,6 +5,7 @@ from twilio_setup import send_msg
 
 import pytz
 import json
+import datetime
 from datetime import datetime, tzinfo, date
 from pprint import pprint as pp
 
@@ -195,6 +196,7 @@ def changeTrStatus():
 @app.route('/RegisterForCourse', methods=['POST'])
 def registerForCourse():
     data = json.loads(request.data)
+    print(data)
     trans_ref = db.collection('transactions')
     for tid in data['transactions']:
         trans_ref.document(tid).set({
@@ -202,3 +204,18 @@ def registerForCourse():
             'student_id': data['student_id']
         }, merge=True)
     return { 'success': True }
+
+
+@app.route('/RegisterForTutor', methods=['POST'])
+def registerForTutor():
+    transaction = {
+        'appointment': datetime.fromisoformat(request.form['appointment']),
+        'course_id': request.form['course_id'],
+        'reason': '',
+        'status': -1,
+        'student_id': "-1",
+        'tutor_id': request.form['tutor_id']
+    }
+    # print(transaction)
+    db.collection('transactions').add(transaction)
+    return {'success': True}

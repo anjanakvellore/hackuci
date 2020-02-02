@@ -5,6 +5,7 @@ import {Transaction} from '../../models/transaction';
 import {SaveAppointment} from '../../models/saveAppointment';
 import {TutorService} from '../../services/tutor/tutor.service';
 import {TutorDisplayData} from '../../models/tutorDisplayData';
+import { ProfileService } from 'src/app/services/profile/profile.service';
 
 @Component({
   selector: 'app-contact-card',
@@ -21,7 +22,7 @@ export class ContactCardComponent implements OnInit, OnChanges {
   selectedItems = [];
   dropdownSettings: IDropdownSettings;
 
-  constructor(private modalService: NgbModal, private service: TutorService) {
+  constructor(private modalService: NgbModal, private service: TutorService, private profileService: ProfileService) {
     this.modalOptions = {
       backdrop: 'static',
       backdropClass: 'customBackdrop'
@@ -104,7 +105,7 @@ export class ContactCardComponent implements OnInit, OnChanges {
     this.selectedItems.forEach(value => {
       saveObj.transactions.push(value.id);
     });
-    saveObj.student_id = '101';
+    saveObj.student_id = this.profileService.profileDetails.user_id;
     this.service.sendAppointmentStatus(saveObj).subscribe(x => {
       console.log('Done');
       this.selectedItems = [];

@@ -2,7 +2,7 @@
   <div style="height: 80px;">
     <app-navbar></app-navbar>
   </div>
-  <div class="row no-gutters" style="display: flex; height: calc(100% - 80px); padding: 0 60px;">
+  <div class="row no-gutters" style="display: flex; height: calc(100% - 80px); padding: 0 60px; overflow-y: auto;">
     <div class="col-sm-4">
       <div class="display-4">
         Notifications
@@ -23,7 +23,6 @@
             <p style="font-size: 14px;">Subject: {{appointment.course.subject.name}}</p>
             <p style="font-size: 14px;">Course: {{appointment.course.name}}</p>
             <p style="font-size: 14px;">Date & Time: {{appointment.appointment}}</p>
-
             <div class="decide-btns">
             <button type="button" class="btn btn-success" (click)="onClickAccept(appointment.transaction_id)"
               style="font-size: 13px;">Accept</button>
