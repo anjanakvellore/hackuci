@@ -5,7 +5,8 @@ import {Transaction} from '../../models/transaction';
 import {SaveAppointment} from '../../models/saveAppointment';
 import {TutorService} from '../../services/tutor/tutor.service';
 import {TutorDisplayData} from '../../models/tutorDisplayData';
-import { ProfileService } from 'src/app/services/profile/profile.service';
+import {ProfileService} from 'src/app/services/profile/profile.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-contact-card',
@@ -22,7 +23,8 @@ export class ContactCardComponent implements OnInit, OnChanges {
   selectedItems = [];
   dropdownSettings: IDropdownSettings;
 
-  constructor(private modalService: NgbModal, private service: TutorService, private profileService: ProfileService) {
+  constructor(private modalService: NgbModal, private service: TutorService,
+              private profileService: ProfileService, private SpinnerService: NgxSpinnerService) {
     this.modalOptions = {
       backdrop: 'static',
       backdropClass: 'customBackdrop'
@@ -45,10 +47,7 @@ export class ContactCardComponent implements OnInit, OnChanges {
 
     if (this.transactions) {
       this.transactions = this.transactions.filter(value => {
-        if (value.tutorId === this.tutorInfo.id && value.courseId === this.tutorInfo.courseId) {
-          return true;
-        }
-        return false;
+        return value.tutorId === this.tutorInfo.id && value.courseId === this.tutorInfo.courseId;
       });
       console.log('t: ', this.transactions);
       this.transactions.forEach(value => this.dropdownList.push({id: value.id, date: this.getFormattedDate(value.date)}));
@@ -96,19 +95,24 @@ export class ContactCardComponent implements OnInit, OnChanges {
   }
 
   private bookAppointment() {
+    if (this.selectedItems.length === 0) {
+      alert('Cannot Book! User did not select any dates!');
+      return;
+    }
+    this.SpinnerService.show();
     const saveObj: SaveAppointment = {
       transactions: [],
       student_id: null
     };
-    // saveObj = {};
     saveObj.transactions = [];
     this.selectedItems.forEach(value => {
       saveObj.transactions.push(value.id);
     });
     saveObj.student_id = this.profileService.profileDetails.user_id;
     this.service.sendAppointmentStatus(saveObj).subscribe(x => {
-      console.log('Done');
+      alert('Booking Appointment Request Successfully Sent!');
       this.selectedItems = [];
+      this.SpinnerService.hide();
     });
   }
 }

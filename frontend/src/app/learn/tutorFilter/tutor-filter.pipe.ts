@@ -19,6 +19,7 @@ export class TutorFilterPipe implements PipeTransform {
       return items;
     }
     if (this.profileService != null) {
+      // @ts-ignore
       items = items.filter(item => item.id !== this.profileService.profileDetails.user_id);
     }
     if (!nameFilter && !courseFilter) {

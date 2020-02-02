@@ -16,6 +16,7 @@ import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 import {TutorFilterPipe} from './learn/tutorFilter/tutor-filter.pipe';
 import {TutorComponent} from './tutor/tutor.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     NgbModule,
     FormsModule,
     NgMultiSelectDropDownModule.forRoot(),
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent],
