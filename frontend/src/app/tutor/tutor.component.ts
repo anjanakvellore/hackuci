@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { SubjectCourseMap } from '../models/subjectcoursemap';
 import { TutorService } from '../services/tutor/tutor.service';
 import { Course } from '../models/subjectcoursemap';
+// import * as Litepicker from 'litepicker';
+// import { Litepicker } from "litepicker";
+declare var Litepicker: any;
+// declare var $: any;
 
 @Component({
   selector: 'app-tutor',
@@ -19,7 +23,7 @@ export class TutorComponent implements OnInit {
 
   ngOnInit() {
     this.getAllSubjects();
-    const mentor = new MentorAvailability();
+    let mentor = new MentorAvailability(0)
     this.mentorAvailability.push(mentor);
     this.selectedRow = 0;
 
@@ -44,16 +48,18 @@ export class TutorComponent implements OnInit {
 
   onAddBtnClick() {
     console.log('add btn triggered');
-    const mentor = new MentorAvailability();
+    const mentor = new MentorAvailability(this.mentorAvailability.length);
     this.mentorAvailability.push(mentor);
     console.log(this.mentorAvailability);
   }
 
   onDeleteBtnClick() {
     console.log('del btn triggered');
-    if (this.mentorAvailability.length > 1) {
-      this.mentorAvailability.splice(this.selectedRow);
-    }
+    // if (this.mentorAvailability.length > 1) {
+    //   this.mentorAvailability.splice(this.selectedRow, 1);
+    // }
+    this.mentorAvailability[this.selectedRow].deleted = true;
+    console.log(this.mentorAvailability);
   }
 
   onRowClick(index: number) {
@@ -69,7 +75,11 @@ export class MentorAvailability {
   selectedCourse: Course;
   selectedSubject: SubjectCourseMap;
   courseList: Course[];
-  date: string;
-  public MentorAvailability() {
+  deleted: boolean;
+  datepicker: any;
+
+  constructor(id: number) {
+    this.deleted = false;
+    this.datepicker = new Litepicker({ element: document.getElementById('litepicker-'+id) });
   }
 }

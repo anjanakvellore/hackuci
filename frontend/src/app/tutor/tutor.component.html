@@ -1,52 +1,53 @@
 <div>
-    <div>
-        <app-navbar></app-navbar>
-    </div>
-    <div>
-        <div style="padding-top: 15px; padding-left: 25px;">
-            <div class="row" style="text-align: center;">
-                <div class="col-sm-4">
-                    Subjects
-                </div>
-                <div class="col-sm-4">
-                    Courses
-                </div>
-                <div class="col-sm-4">
-                    Availability
-                </div>
-            </div>
+  <div>
+    <app-navbar></app-navbar>
+  </div>
+  <div>
+    <div style="padding-top: 15px; padding-left: 25px;">
+      <div class="row" style="text-align: center;">
+        <div class="col-sm-4">
+          Subjects
         </div>
-        <form style="padding: 10 px;">
-            <div class="row" *ngFor="let row of mentorAvailability;let i=index" style="padding: 10px;"
-                (click)="onRowClick(i)">
-                <div class="form-group" class=col-sm-4>
-                    <!-- <label for="subjects">Subjects</label> -->
-                    <select class="form-control" id="subjects" [(ngModel)]="mentorAvailability[i].selectedSubject"
-                name="subjects-{{i}}" (change)="onSubjectChange()">
-                        <option [ngValue]="undefined">Select a subject</option>
-                        <option *ngFor="let subject of subjectCourseMap" [ngValue]="subject">{{subject.name}}</option>
-                    </select>
-                </div>
-                <div class="form-group" class="col-sm-4">
-                    <!-- <label for="courses">Courses</label> -->
-                    <select class="form-control" id="courses" [(ngModel)]="mentorAvailability[i].selectedCourse"
-                        name="courses-{{i}}">
-                        <option [ngValue]="undefined">Select a course</option>
-                        <option *ngFor="let course of mentorAvailability[i].courseList" [ngValue]="course">
-                            {{course.name}}</option>
-                    </select>
-                </div>
-                <div class="form-group" class="col-sm-4">
-
-
-                </div>
-            </div>
-        </form>
-        <div class="row" style="padding: 25px;">
-            <div class="btn-group btn-group-sm" role="group">
-                <button id="btnAdd" class="btn btn-info btn-sm" (click)="onAddBtnClick()">Add</button>
-                <button id="btnDelete" class="btn btn-info btn-sm" (click)="onDeleteBtnClick()">Delete</button>
-            </div>
+        <div class="col-sm-4">
+          Courses
         </div>
+        <div class="col-sm-4">
+          Availability
+        </div>
+      </div>
     </div>
+    <form style="padding: 10 px;">
+      <ng-container *ngFor="let row of mentorAvailability;let i=index">
+        <div class="row" *ngIf="!row.deleted" style="padding: 10px;" (click)="onRowClick(i)">
+          <div class="form-group" class=col-sm-4>
+            <!-- <label for="subjects">Subjects</label> -->
+            <select class="form-control" id="subjects" [(ngModel)]="mentorAvailability[i].selectedSubject"
+              name="subjects-{{i}}" (change)="onSubjectChange()">
+              <option [ngValue]="undefined">Select a subject</option>
+              <option *ngFor="let subject of subjectCourseMap" [ngValue]="subject">{{subject.name}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group" class="col-sm-4">
+            <!-- <label for="courses">Courses</label> -->
+            <select class="form-control" id="courses" [(ngModel)]="mentorAvailability[i].selectedCourse"
+              name="courses-{{i}}">
+              <option [ngValue]="undefined">Select a course</option>
+              <option *ngFor="let course of mentorAvailability[i].courseList" [ngValue]="course">
+                {{course.name}}</option>
+            </select>
+          </div>
+          <div class="form-group" class="col-sm-4" id="litepicker-{{i}}">
+
+          </div>
+        </div>
+      </ng-container>
+    </form>
+    <div class="row" style="padding: 25px;">
+      <div class="btn-group btn-group-sm" role="group">
+        <button id="btnAdd" class="btn btn-info btn-sm" (click)="onAddBtnClick()">Add</button>
+        <button id="btnDelete" class="btn btn-info btn-sm" (click)="onDeleteBtnClick()">Delete</button>
+      </div>
+    </div>
+  </div>
 </div>
