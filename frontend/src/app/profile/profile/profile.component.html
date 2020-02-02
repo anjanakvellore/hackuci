@@ -5,7 +5,7 @@
   <div class="row no-gutters" style="display: flex; height: calc(100% - 90px); padding-right: 20px;">
     <div class="card border col-sm-4">
       <button type="button" id="user-modal-btn" class="btn btn-outline-light position-absolute" data-toggle="modal"
-        data-target="#user-modal">
+              data-target="#user-modal">
         <i class="fas fa-random"></i>
       </button>
       <img src="../../../assets/profiles/{{profileDetails?.username}}.jpg" id="dp" class="card-img-top" alt="...">
@@ -35,14 +35,14 @@
       </div>
       <ng-container *ngFor="let appointment of studentAppointments">
         <div *ngIf="studentAppointments!=null && studentAppointments.length>0" class="card text-white bg-dark"
-          style="margin-bottom: 5px;">
+             style="margin-bottom: 5px;">
           <div class="card-header">
             <h5 class="card-title">{{appointment.student.name}}</h5>
           </div>
           <div class="card-body">
             <p style="font-size: 14px;">Subject: {{appointment.course.subject.name}}</p>
             <p style="font-size: 14px;">Course: {{appointment.course.name}}</p>
-            <p style="font-size: 14px;">Date & Time: {{appointment.appointment}}</p>
+            <p style="font-size: 14px;">Date: {{appointment.appointment | date :'MMM dd, yyyy'}}</p>
           </div>
         </div>
       </ng-container>
@@ -52,7 +52,7 @@
       <div class="text-center display-4">
         Previous Mentor Appointments
       </div>
-      
+
       <div *ngIf="tutorAppointments == null || tutorAppointments.length == 0" class="card text-white bg-dark">
         <div class="card-header">
           <h5 class="card-title">No Mentor Appointments</h5>
@@ -60,7 +60,7 @@
       </div>
       <ng-container *ngFor="let appointment of tutorAppointments">
         <div *ngIf="tutorAppointments!=null && tutorAppointments.length>0" class="card text-white bg-dark"
-          style="margin-bottom: 5px;">
+             style="margin-bottom: 5px;">
           <div class="card-header">
             <h5 class="card-title">{{appointment.tutor.name}}</h5>
           </div>
@@ -68,98 +68,41 @@
             <p style="font-size: 14px;">Subject: {{appointment.course.subject.name}}</p>
             <p style="font-size: 14px;">Course: {{appointment.course.name}}</p>
             <p style="font-size: 14px;">Status: {{appointment.statusStr}}</p>
-            <p style="font-size: 14px;">Date & Time: {{appointment.appointment}}</p>
+            <p style="font-size: 14px;">Date: {{appointment.appointment | date :'MMM dd, yyyy'}}</p>
           </div>
         </div>
       </ng-container>
     </div>
-    </div>
+  </div>
 </div>
 
-
-    <!-- <div class="row" style="display: flex;padding-top:50px;padding-left: 50px;">
-    <div class="card col-sm-4" style="width: 18rem;">
-     Button trigger modal 
-    <button type="button" id="user-modal-btn" class="btn btn-outline-light" data-toggle="modal" data-target="#user-modal">
-      <i class="fas fa-random"></i>
-    </button>
-      <img src="../../../assets/profiles/{{profileDetails?.username}}.jpg" id="dp" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">{{profileDetails?.name}}</h5>
-        <h6 class="card-text">About</h6>
-        <p>{{profileDetails?.bio}}</p>
-        <h6 class="card-text">Major</h6>
-        <p>{{profileDetails?.major}}</p>
-        <h6 class="card-text">Hourly Pay</h6>
-        <p>{{profileDetails?.pay}}</p>
-        <h6 class="card-text">Phone Number</h6>
-        <p>{{profileDetails?.phone}}</p>
-        <h6 class="card-text">Email Id</h6>
-        <p>{{profileDetails?.mail_id}}</p>
-
-        
-      </div>
-    </div> -->
-
-    <!-- <div class="card col-sm-4" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Previous Student Appointments</h5>
-        <div style="font-size: 12px;">
-          <ul>
-            <li *ngFor="let appointment of studentAppointments">
-              Name:{{appointment.student.name}} <br />
-              Subject: {{appointment.course.subject.name}} <br />
-              Course: {{appointment.course.name}} <br />
-              Date & Time: {{appointment.appointment}}
-            </li>
-          </ul>
+<!--  Username Modal -->
+<div aria-hidden="true" aria-labelledby="user-modal-label" class="modal fade" id="user-modal" role="dialog"
+     tabindex="-1">
+  <div class="modal-dialog model-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="input-group">
+          <input [(ngModel)]="username" aria-describedby="basic-addon1" aria-label="Username" class="form-control"
+                 name="username" placeholder="Username" type="text">
         </div>
       </div>
-    </div>  -->
-
-    <!-- <div class="card col-sm-4" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Previous Mentor Appointments</h5>
-        <div style="font-size: 12px;">
-          <ul>
-            <li *ngFor="let appointment of tutorAppointments">
-              Name: {{appointment.tutor.name}} <br />
-              Subject: {{appointment.course.subject.name}} <br />
-              Course: {{appointment.course.name}} <br />
-              Status: {{appointment.statusStr}}<br />
-              Date & Time: {{appointment.appointment}} <br />
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-  <!--  Username Modal -->
-  <div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="user-modal-label"
-    aria-hidden="true">
-    <div class="modal-dialog model-dialog-centered" role="document">
-      <div class="modal-content">
-        <!-- <div class="modal-header">
-        <h5 class="modal-title" id="user-modal-label">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+      <div class="modal-footer">
+        <button (click)="updateProfileData()" class="btn btn-success" data-dismiss="modal" type="button">Sign
+          in
         </button>
-      </div> -->
-        <div class="modal-body">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-              aria-describedby="basic-addon1" name="username" [(ngModel)]="username">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="updateProfileData()">Sign
-            in</button>
-        </div>
       </div>
     </div>
   </div>
+<<<<<<< HEAD
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+  <p style="color: white">Please Wait. </p>
+</ngx-spinner>
+=======
 
   <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
     <p style="color: white">Please Wait. </p>
   </ngx-spinner>
+>>>>>>> 263703c3b45be8e9710dbfcbae2eaf3c87aabec2
