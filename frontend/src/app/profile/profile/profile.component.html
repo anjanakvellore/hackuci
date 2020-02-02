@@ -1,56 +1,86 @@
 <div>
-    <div>
-        <app-navbar></app-navbar>
-    </div>
-    <div class="row" style="display: flex;padding-top:50px;padding-left: 50px;">
-        <div class="card col-sm-4" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <h6 class="card-text">About</h6>
-                <p>Bio</p>
-              <h6 class="card-text">Major</h6>
-                <p>Software Engineering</p>
-              <h6 class="card-text">Hourly Pay</h6>
-                <p>$40</p>
-              <h6 class="card-text">Phone Number</h6>
-                <p>+1(949)-999-99990</p>
-              <h6 class="card-text">Email Id</h6>
-                <p>xyz@uci.edu</p>
-            </div>
-          </div>
+  <div>
+    <app-navbar></app-navbar>
+  </div>
+  <div class="row" style="display: flex;padding-top:50px;padding-left: 50px;">
+    <div class="card col-sm-4" style="width: 18rem;">
+    <!-- Button trigger modal -->
+    <button type="button" id="user-modal-btn" class="btn btn-outline-light" data-toggle="modal" data-target="#user-modal">
+      <i class="fas fa-random"></i>
+    </button>
+      <img src="../../../assets/profiles/{{profileDetails?.username}}.jpg" id="dp" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{profileDetails?.name}}</h5>
+        <h6 class="card-text">About</h6>
+        <p>{{profileDetails?.bio}}</p>
+        <h6 class="card-text">Major</h6>
+        <p>{{profileDetails?.major}}</p>
+        <h6 class="card-text">Hourly Pay</h6>
+        <p>{{profileDetails?.pay}}</p>
+        <h6 class="card-text">Phone Number</h6>
+        <p>{{profileDetails?.phone}}</p>
+        <h6 class="card-text">Email Id</h6>
+        <p>{{profileDetails?.mail_id}}</p>
 
-          <div class="card col-sm-4" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Previous Student Appointments</h5>
-              <div style="font-size: 12px;">
-                <ul>
-                    <li *ngFor="let appointment of studentAppointments">
-                        Name:{{appointment.student.name}} <br/>
-                        Subject: {{appointment.course.subject.name}} <br/>
-                        Course: {{appointment.course.name}} <br/>
-                        Date & Time: {{appointment.appointment}}
-                    </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="card col-sm-4" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Previous Mentor Appointments</h5>
-              <div style="font-size: 12px;">
-                <ul>
-                    <li *ngFor="let appointment of tutorAppointments">
-                        Name: {{appointment.tutor.name}} <br/>
-                        Subject: {{appointment.course.subject.name}} <br/>
-                        Course: {{appointment.course.name}} <br/>
-                        Status: {{appointment.statusStr}}<br/>
-                        Date & Time: {{appointment.appointment}} <br/>
-                    </li>
-                </ul>
-                </div>
-            </div>
-          </div>
+        
+      </div>
     </div>
+
+    <div class="card col-sm-4" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Previous Student Appointments</h5>
+        <div style="font-size: 12px;">
+          <ul>
+            <li *ngFor="let appointment of studentAppointments">
+              Name:{{appointment.student.name}} <br />
+              Subject: {{appointment.course.subject.name}} <br />
+              Course: {{appointment.course.name}} <br />
+              Date & Time: {{appointment.appointment}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card col-sm-4" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Previous Mentor Appointments</h5>
+        <div style="font-size: 12px;">
+          <ul>
+            <li *ngFor="let appointment of tutorAppointments">
+              Name: {{appointment.tutor.name}} <br />
+              Subject: {{appointment.course.subject.name}} <br />
+              Course: {{appointment.course.name}} <br />
+              Status: {{appointment.statusStr}}<br />
+              Date & Time: {{appointment.appointment}} <br />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  Username Modal -->
+<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="user-modal-label"
+  aria-hidden="true">
+  <div class="modal-dialog model-dialog-centered" role="document">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+        <h5 class="modal-title" id="user-modal-label">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> -->
+      <div class="modal-body">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+            aria-describedby="basic-addon1" name="username" [(ngModel)]="username">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="updateProfileData()">Sign in</button>
+      </div>
+    </div>
+  </div>
 </div>
