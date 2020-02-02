@@ -1,0 +1,36 @@
+.col-sm-4 {
+    padding: 10px;
+}
+
+.display-4 {
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1.2;
+    text-align: center;
+    padding: 10px;
+}
+
+.card {
+    margin-bottom: 10px;
+    height: 190px;
+}
+
+.card-header {
+    padding-bottom: 0;
+}
+.card-body {
+    padding-top: 0;
+}
+p {
+    margin-bottom: 0.25rem;
+}
+
+.decide-btns {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+        width: 70px;
+        margin: 5px;
+    }
+}
