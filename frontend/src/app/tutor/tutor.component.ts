@@ -10,66 +10,66 @@ import { Course } from '../models/subjectcoursemap';
 })
 export class TutorComponent implements OnInit {
 
-  public subjectCourseMap:SubjectCourseMap[];
+  public subjectCourseMap: SubjectCourseMap[];
   mentorAvailability = new Array<MentorAvailability>();
-  selectedRow:number;
-  
+  selectedRow: number;
 
-  constructor(private service:TutorService) { }
+
+  constructor(private service: TutorService) { }
 
   ngOnInit() {
     this.getAllSubjects();
-    var mentor = new MentorAvailability();
+    const mentor = new MentorAvailability();
     this.mentorAvailability.push(mentor);
     this.selectedRow = 0;
-    
+
   }
 
-  getAllSubjects(){
-    this.service.getAllSubjects().subscribe(data=>{
+  getAllSubjects() {
+    this.service.getAllSubjects().subscribe(data => {
       this.subjectCourseMap = data.subjects;
       console.log(this.subjectCourseMap);
     });
-    
+
 
   }
 
   onSubjectChange() {
     console.log('subject change triggered');
-    this.mentorAvailability[this.selectedRow].courseList = this.mentorAvailability[this.selectedRow].selectedSubject.courses; 
+    this.mentorAvailability[this.selectedRow].courseList = this.mentorAvailability[this.selectedRow].selectedSubject.courses;
     console.log(this.mentorAvailability[this.selectedRow].courseList);
     this.mentorAvailability[this.selectedRow].selectedCourse = undefined;
-    
+
   }
 
-  onAddBtnClick(){
+  onAddBtnClick() {
     console.log('add btn triggered');
-    var mentor = new MentorAvailability();
+    const mentor = new MentorAvailability();
     this.mentorAvailability.push(mentor);
     console.log(this.mentorAvailability);
   }
 
-  onDeleteBtnClick(){
+  onDeleteBtnClick() {
     console.log('del btn triggered');
-    if(this.mentorAvailability.length>1){
+    if (this.mentorAvailability.length > 1) {
       this.mentorAvailability.splice(this.selectedRow);
     }
   }
 
-  onRowClick(index:number){
+  onRowClick(index: number) {
     console.log('row click triggered');
-    //debugger
-    this.selectedRow=index;
+    // debugger
+    this.selectedRow = index;
     console.log(this.selectedRow);
   }
 
 }
 
-export class MentorAvailability{
-  selectedCourse:Course;
-  selectedSubject:SubjectCourseMap;
+export class MentorAvailability {
+  selectedCourse: Course;
+  selectedSubject: SubjectCourseMap;
   courseList: Course[];
-  date:string;
-  public MentorAvailability(){
+  date: string;
+  public MentorAvailability() {
   }
 }
