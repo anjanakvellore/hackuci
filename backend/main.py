@@ -4,6 +4,7 @@ from firebase_setup import db
 from twilio_setup import send_msg
 
 import pytz
+import json
 from datetime import datetime, tzinfo, date
 from pprint import pprint as pp
 
@@ -16,7 +17,7 @@ def hello_world():
 
 @app.route('/students', methods=['POST'])
 def getStudents():
-    print(request.form)
+    # print(request.form)
     tutorID = request.form['tutor_id']
     transactions_iter = db.collection(u'transactions').where('tutor_id', '==', tutorID).stream()
     transactions = []
@@ -33,7 +34,7 @@ def getStudents():
         tdict['course'] = cdict
         tdict['student'] = student_dict
         # tdict['tutor'] = tutor_dict
-        print(tdict)
+        # print(tdict)
         transactions.append(tdict)
     return {'transactions': transactions}
 
@@ -57,7 +58,7 @@ def getTutors():
         tdict['course'] = cdict
         # tdict['student'] = student_dict
         tdict['tutor'] = tutor_dict
-        print(tdict)
+        # print(tdict)
         transactions.append(tdict)
     return {'transactions': transactions}
 
@@ -140,7 +141,7 @@ def getAllSubjects():
         sdict['courses'] = cdicts
         subjects.append(sdict)
 
-    print(subjects)
+    # print(subjects)
     return {'subjects': subjects}
 
 @app.route('/ChangeTransactionStatus', methods=['POST'])
@@ -165,6 +166,7 @@ def changeTrStatus():
 
     tdict['status'] = -1
     tdict['reason'] = ''
+    tdict['student_id'] = "-1"
 
     msg_body = ""
     if status == 1:
@@ -176,7 +178,6 @@ def changeTrStatus():
             tdict['appointment'].strftime("%b %d, %Y at %H:%M")])
         send_msg(msg_body, student_dict['phone'])
     if status == 2:
-        # trans_ref.add(tdict)
         msg_body = ''.join(["Sorry, you were not selected for the session held by ",
             tutor_dict['name'],
             " for ",
@@ -185,6 +186,18 @@ def changeTrStatus():
             tdict['appointment'].strftime("%b %d, %Y at %H:%M"),
             ". Reason given: ",
             reason])
+        trans_ref.add(tdict)
         send_msg(msg_body, student_dict['phone'])
 
     return {'outcome': msg_body}
+
+@app.route('/RegisterForCourse', methods=['POST'])
+def registerForCourse():
+    data = json.loads(request.data)
+    trans_ref = db.collection('transactions')
+    for tid in data['transactions']:
+        trans_ref.document(tid).set({
+            'status': 0,
+            'student_id': data['student_id']
+        }, merge=True)
+    return { 'success': True }
