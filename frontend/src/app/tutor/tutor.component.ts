@@ -89,8 +89,9 @@ export class TutorComponent implements OnInit {
       }
 
     }
+    alert('Thank you for marking for availability!');
   }
-
+  
 }
 
 export class MentorAvailability {

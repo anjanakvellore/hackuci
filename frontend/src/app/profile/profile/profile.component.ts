@@ -4,6 +4,7 @@ import { TutorAppointment } from 'src/app/models/tutorAppointment';
 import { ProfileDetails } from 'src/app/models/profileDetails';
 import { ProfileService } from 'src/app/services/profile/profile.service';
 import { getLocaleDateTimeFormat } from '@angular/common';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-profile',
@@ -14,11 +15,12 @@ export class ProfileComponent implements OnInit {
 
   public studentAppointments: StudentAppointment[];
   public tutorAppointments: TutorAppointment[];
+  public loadingCount:number = 0;
 
   public profileDetails: ProfileDetails;
   username: string;
 
-  constructor(private profileService: ProfileService) {
+  constructor(private profileService: ProfileService,private SpinnerService: NgxSpinnerService) {
     this.username = 'divya2000';
     this.updateProfileData();
   }
@@ -32,6 +34,7 @@ export class ProfileComponent implements OnInit {
 
 
   getStudentAppointments(){
+    this.showLoadingIcon();
     this.profileService.getStudentAppointments().subscribe(data=>{
       data.transactions.forEach(x => {
         
@@ -55,11 +58,13 @@ export class ProfileComponent implements OnInit {
         }
         
       });
+      this.hideLoadingIcon();
     })
 
   }
 
   getTutorAppointments(){
+    this.showLoadingIcon();
     this.profileService.getTutorAppointments().subscribe(data=>{
       data.transactions.forEach(x => {
         
@@ -83,6 +88,7 @@ export class ProfileComponent implements OnInit {
         }
         
       });
+      this.hideLoadingIcon();
     })
 
 
@@ -95,6 +101,20 @@ export class ProfileComponent implements OnInit {
       this.profileService.saveUserData(userResp);
       this.profileService.profileDetails = userResp;
     });
+  }
+
+  showLoadingIcon() {
+    if (this.loadingCount === 0) {
+      this.SpinnerService.show();
+    }
+    this.loadingCount++;
+  }
+
+  hideLoadingIcon() {
+    this.loadingCount--;
+    if (this.loadingCount === 0) {
+      this.SpinnerService.hide();
+    }
   }
 
 }

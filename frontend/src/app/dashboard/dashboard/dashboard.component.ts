@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {StudentAppointment} from '../../models/studentAppointment';
 import {TutorAppointment} from '../../models/tutorAppointment';
 import { DashboardService } from '../../services/dashboard/dashboard.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,13 +11,16 @@ import { DashboardService } from '../../services/dashboard/dashboard.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private service: DashboardService) { }
+  constructor(private service: DashboardService,private SpinnerService: NgxSpinnerService) { 
+
+  }
   public allStudentAppointments: StudentAppointment[];
   public studentAppointments: StudentAppointment[];
   public tutorAppointments: TutorAppointment[];
   public pendingStudentAppointments: StudentAppointment[];
   public currentTranscationId:string;
   public reason:string;
+  public loadingCount:number = 0;
 
   ngOnInit() {
     this.studentAppointments = [];
@@ -27,6 +31,7 @@ export class DashboardComponent implements OnInit {
 
 
   getAllStudentAppointments() {
+    this.showLoadingIcon();
     this.service.getAllStudentAppointments()
     .subscribe(data => {
       console.log('all appointments', data);
@@ -45,10 +50,12 @@ export class DashboardComponent implements OnInit {
         x.appointment = date.toLocaleString();
     });
       console.log(this.pendingStudentAppointments);
+      this.hideLoadingIcon();
     });
   }
 
   getTutorAppointments() {
+      this.showLoadingIcon();
       this.service.getTutorAppointments()
       .subscribe(data => {
         console.log('all tut appointments', data);
@@ -63,6 +70,7 @@ export class DashboardComponent implements OnInit {
             x.statusStr = 'Pending';
           }
       });
+      this.hideLoadingIcon();
 
       });
   }
@@ -103,6 +111,20 @@ export class DashboardComponent implements OnInit {
   onClickModalCancel(){
     console.log('clicked modal cancel');
     this.reason = ''
+  }
+
+  showLoadingIcon() {
+    if (this.loadingCount === 0) {
+      this.SpinnerService.show();
+    }
+    this.loadingCount++;
+  }
+
+  hideLoadingIcon() {
+    this.loadingCount--;
+    if (this.loadingCount === 0) {
+      this.SpinnerService.hide();
+    }
   }
 
 
