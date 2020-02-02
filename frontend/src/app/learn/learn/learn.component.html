@@ -1,34 +1,17 @@
-<div>
-  <app-navbar></app-navbar>
-  <div class="col-md-12 col-form-label">Search for Mentors!</div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md" style=" align-content:flex-start">
-        Filter By:
-      </div>
-      <div class="col-md">
-        <input [(ngModel)]="nameFilter" aria-describedby="basic-addon1" class="form-control"
-               placeholder="Search By Name"
-               type="text">
-      </div>
-      <div class="col-md">
-        <div class="form-group">
-          <ng-multiselect-dropdown
-            (onSelect)="onItemSelect($event)"
-            (onSelectAll)="onSelectAll($event)"
-            [(ngModel)]="selectedItems"
-            [data]="allCourses"
-            [placeholder]="'Search by Courses'"
-            [settings]="dropdownSettings"
-          >
-          </ng-multiselect-dropdown>
-        </div>
-      </div>
+<div class="h-100">
+  <div style="height: 90px;">
+    <app-navbar></app-navbar>
+  </div>
+  <div id="learn-filter">
+    <input [(ngModel)]="nameFilter" aria-describedby="basic-addon1" class="form-control bg-dark text-white" placeholder="Search By Name"
+      type="text">
+    <ng-multiselect-dropdown class=" bg-dark text-white" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+      [(ngModel)]="selectedItems" [data]="allCourses" [placeholder]="'Search by Courses'" [settings]="dropdownSettings">
+    </ng-multiselect-dropdown>
+  </div>
+  <div id="tutor-cards">
+    <div class="tutor-card" *ngFor="let item of tutors | tutorFilter: nameFilter:selectedItems">
+      <app-contact-card [transactions]="allTransactions" [tutorInfo]="item"></app-contact-card>
     </div>
   </div>
-  <ul>
-    <li *ngFor="let item of tutors | tutorFilter: nameFilter:selectedItems" style="margin: 15px">
-      <app-contact-card [transactions]="allTransactions" [tutorInfo]="item"></app-contact-card>
-    </li>
-  </ul>
 </div>

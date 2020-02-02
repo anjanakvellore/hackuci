@@ -9,7 +9,7 @@ import { ProfileService } from '../profile/profile.service';
 })
 export class TutorService {
 
-  constructor(private http: HttpClient,private profileService: ProfileService) {
+  constructor(private http: HttpClient, private profileService: ProfileService) {
   }
 
   public getAllSubjects(): Observable<any> {
@@ -18,9 +18,9 @@ export class TutorService {
 
   }
 
-  public submitChanges(course_id:string,date:string):Observable<any>{
+  public submitChanges(course_id: string, date: string): Observable<any> {
     const localUrl = 'http://169.234.110.139:5000/RegisterForTutor';
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append('course_id', course_id);
     formData.append('tutor_id', this.profileService.profileDetails.user_id);
     formData.append('appointment', date);

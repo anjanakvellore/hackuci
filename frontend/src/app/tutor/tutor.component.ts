@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { SubjectCourseMap } from '../models/subjectcoursemap';
 import { TutorService } from '../services/tutor/tutor.service';
 import { Course } from '../models/subjectcoursemap';
-import * as moment from 'moment';
+// import * as moment from 'moment';
 import { stringify } from 'querystring';
 // import * as Litepicker from 'litepicker';
 // import { Litepicker } from "litepicker";
 declare var Litepicker: any;
+declare var moment: any;
 // declare var $: any;
 
 @Component({
@@ -25,7 +26,7 @@ export class TutorComponent implements OnInit {
 
   ngOnInit() {
     this.getAllSubjects();
-    let mentor = new MentorAvailability(0)
+    const mentor = new MentorAvailability(0);
     this.mentorAvailability.push(mentor);
     this.selectedRow = 0;
 
@@ -70,25 +71,25 @@ export class TutorComponent implements OnInit {
     console.log(this.selectedRow);
   }
 
-  fromDateChange(event:any){
+  fromDateChange(event: any) {
     this.mentorAvailability[this.selectedRow].fromDate = event.target.value;
   }
 
-  toDateChange(event:any){
+  toDateChange(event: any) {
     this.mentorAvailability[this.selectedRow].toDate = event.target.value;
   }
-  onSubmitButtonClick(){
+  onSubmitButtonClick() {
     console.log(this.mentorAvailability);
-    for(var i=0;i<this.mentorAvailability.length;i++){
-      var currentDate = moment(new Date(this.mentorAvailability[i].fromDate));
-      var stopDate = moment(new Date(this.mentorAvailability[i].toDate));
+    for (let i = 0; i < this.mentorAvailability.length; i++) {
+      let currentDate = moment(new Date(this.mentorAvailability[i].fromDate));
+      const stopDate = moment(new Date(this.mentorAvailability[i].toDate));
       while (currentDate <= stopDate) {
-           var dateStr = moment(currentDate).format('YYYY-MM-DD hh:mm:ss');
+           const dateStr = moment(currentDate).format('YYYY-MM-DD hh:mm:ss');
            currentDate = moment(currentDate).add(1, 'days');
            console.log(dateStr);
-           this.service.submitChanges(this.mentorAvailability[i].selectedCourse.course_id,dateStr).subscribe();
+           this.service.submitChanges(this.mentorAvailability[i].selectedCourse.course_id, dateStr).subscribe();
       }
-      
+
     }
   }
 
@@ -101,10 +102,10 @@ export class MentorAvailability {
   deleted: boolean;
   datepicker: any;
   fromDate: string;
-  toDate:string;
+  toDate: string;
 
   constructor(id: number) {
     this.deleted = false;
-    this.datepicker = new Litepicker({ element: document.getElementById('litepicker-'+id) });
+    this.datepicker = new Litepicker({ element: document.getElementById('litepicker-' + id) });
   }
 }

@@ -1,22 +1,20 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
-  <div class="col-md-3">
-    <div class="contact-box center-version">
-      <a>
-        <img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-        <h3 class="m-b-xs"><strong>{{tutorInfo.username}}</strong></h3>
-        <h5>{{tutorInfo.name}}</h5>
+  <div>
+    <div class="contact-box center-version text-white bg-dark">
+      <a style="background: inherit;">
+      <img alt="image" class="img-circle" src="../../../assets/profiles/{{tutorInfo.username}}.jpg">
+        <h3 class="m-b-xs"><strong>{{tutorInfo.name}}</strong></h3>
+        <h5>{{tutorInfo.username}}</h5>
         <div class="font-bold">Offers: {{tutorInfo.courseName}}</div>
         <strong>{{tutorInfo.pay}}</strong><br>
         <i>{{tutorInfo.bio}}</i>
       </a>
       <div class="contact-box-footer">
-        <div class="m-t-xs btn-group">
-          <button (click)="open(bookMentorModal)" class="btn btn-xs btn-white">
+          <button (click)="open(bookMentorModal)" class="btn btn-success">
             <i class="fa fa-paper-plane"></i>
             Book Appointment
           </button>
-        </div>
       </div>
     </div>
   </div>
