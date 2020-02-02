@@ -1,6 +1,65 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  margin-top: 20px;
+  background: #eee;
+}
+
+/* CONTACTS */
+.contact-box {
+  background-color: #ffffff;
+  border: 1px solid #e7eaec;
+  padding: 20px;
+  margin-bottom: 20px;
+}
 
 html, body {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
+}
+
+.contact-box > a {
+  color: inherit;
+}
+
+.contact-box.center-version {
+  border: 1px solid #e7eaec;
+  padding: 0;
+}
+
+.contact-box.center-version > a {
+  display: block;
+  background-color: #ffffff;
+  padding: 20px;
+  text-align: center;
+}
+
+.contact-box.center-version > a img {
+  width: 80px;
+  height: 80px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.contact-box.center-version address {
+  margin-bottom: 0;
+}
+
+.contact-box .contact-box-footer {
+  text-align: center;
+  background-color: #ffffff;
+  border-top: 1px solid #e7eaec;
+  padding: 15px 20px;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

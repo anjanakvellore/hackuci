@@ -19,6 +19,11 @@ export class LearnService {
       catchError(this.handleError<Tutor[]>('characters', [])));
   }
 
+  public getAllCourses() {
+    return this.http.get(`${this.url}/allcourses`).pipe(
+      catchError(this.handleError<Tutor[]>('characters', [])));
+  }
+
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

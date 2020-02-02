@@ -1,0 +1,55 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+  <div class="col-md-3">
+    <div class="contact-box center-version">
+      <a>
+        <img alt="image" class="img-circle" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+        <h3 class="m-b-xs"><strong>{{tutorInfo.username}}</strong></h3>
+        <h5>{{tutorInfo.name}}</h5>
+        <div class="font-bold">Offers: {{tutorInfo.courseName}}</div>
+        <strong>{{tutorInfo.pay}}</strong><br>
+        <i>{{tutorInfo.bio}}</i>
+      </a>
+      <div class="contact-box-footer">
+        <div class="m-t-xs btn-group">
+          <button (click)="open(bookMentorModal)" class="btn btn-xs btn-white">
+            <i class="fa fa-paper-plane"></i>
+            Book Appointment
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal-->
+<ng-template #bookMentorModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Book An Appointment!</h4>
+    <button (click)="modal.dismiss()" aria-label="Close" class="close" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <ng-multiselect-dropdown
+        (onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)"
+        [(ngModel)]="selectedItems"
+        [data]="dropdownList"
+        [placeholder]="'Select your availability'"
+        [settings]="dropdownSettings"
+      >
+      </ng-multiselect-dropdown>
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">Message for the Mentor: (Optional)</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="modal.close('Save click')" class="btn btn-outline-dark" type="button">Book</button>
+    <button (click)="modal.dismiss()" class="btn btn-outline-dark" type="button">Cancel</button>
+  </div>
+</ng-template>

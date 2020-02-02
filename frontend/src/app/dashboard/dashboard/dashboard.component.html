@@ -1,93 +1,86 @@
-<div>
-    <div>
-        <app-navbar></app-navbar>
-    </div>
-    <div class = "row" style="display: flex;">
-        <div class = "col-sm-4" style="padding-top:50px;padding-left: 50px">
-            <div class="card text-white bg-dark mb-3" style="width: 18rem;min-height: 200px;">
-                <div class="card-header"><h5 class="card-title">Notifications</h5></div>
-                <div class="card-body">
-                    <div *ngIf = "pendingStudentAppointments == null || pendingStudentAppointments.length == 0" style="padding-top: 5px;">
-                        <h6 class="card-text">No notifications</h6>
-                    </div>
-                    <div *ngIf = "pendingStudentAppointments!=null && pendingStudentAppointments.length>0">
-                        <div class="row" style="padding-bottom: 4px;" *ngFor = "let appointment of pendingStudentAppointments">
-                            <div class="col-sm-12">
-                                <div class="card-text">
-                                    <h6>{{appointment.student.name}}</h6>
-                                </div>
-                                <p style="font-size: 14px;">Subject: {{appointment.course.subject.name}}</p>
-                                <p style="font-size: 14px;">Course: {{appointment.course.name}}</p>
-                                <p style="font-size: 14px;">Date & Time: {{appointment.appointment}}</p>
-                                <div class = "row" style="padding-top: 4px; padding-bottom: 4px;">
-                                    <div class="col-sm-12">
-                                        <div class="btn-group btn-group-sm" role="group">
-                                            <button type="button" class="btn btn-secondary" (click)="onClickAccept(appointment.transaction_id)" style="font-size: 13px;">Accept</button>
-                                            <button type="button" class="btn btn-secondary" (click)="onClickReject(appointment.transaction_id)" style="font-size: 13px;">Reject</button>
-                                        </div>
-                                    </div>                                        
-                                </div>
-                            </div>  
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="h-100">
+  <div style="height: 80px;">
+    <app-navbar></app-navbar>
+  </div>
+  <div class="row no-gutters" style="display: flex; height: calc(100% - 80px); padding: 0 60px;">
+    <div class="col-sm-4">
+      <div class="display-4">
+        Notifications
+      </div>
+      <div *ngIf="pendingStudentAppointments == null || pendingStudentAppointments.length == 0"
+        class="card text-white bg-dark">
+        <div class="card-header">
+          <h5 class="card-title">No notifications</h5>
         </div>
-        <div class = "col-sm-4" style="padding-top:50px;padding-left: 50px">
-            <div class="card text-white bg-dark mb-3" style="width: 18rem;min-height: 200px;">
-                <div class="card-header"><h5 class="card-title">Student Appointments</h5></div>
-                <div class="card-body">
-                    <div *ngFor="let appointment of studentAppointments">
-                        <div class="card-text">
-                            <h6>{{appointment.student.name}}</h6>
-                        </div>
-                        <p style="font-size: 14px;">Subject: {{appointment.course.subject.name}}</p>
-                        <p style="font-size: 14px;">Course: {{appointment.course.name}}</p>
-                        <p style="font-size: 14px;">Date & Time: {{appointment.appointment}}</p>
-                        <hr/>
-                    </div>
+      </div>
+      <ng-container *ngFor="let appointment of pendingStudentAppointments">
+        <div *ngIf="pendingStudentAppointments!=null && pendingStudentAppointments.length>0"
+          class="card text-white bg-dark">
+          <div class="card-header">
+            <h5 class="card-title">{{appointment.student.name}}</h5>
+          </div>
+          <div class="card-body">
+            <p style="font-size: 14px;">Subject: {{appointment.course.subject.name}}</p>
+            <p style="font-size: 14px;">Course: {{appointment.course.name}}</p>
+            <p style="font-size: 14px;">Date & Time: {{appointment.appointment}}</p>
 
-                    <!-- <div style="font-size: 12px;">
-                        <ul>
-                            <li *ngFor="let appointment of studentAppointments">
-                                Name:{{appointment.student.name}} <br/>
-                                Subject: {{appointment.course.subject.name}} <br/>
-                                Course: {{appointment.course.name}} <br/>
-                                Date & Time: {{appointment.appointment}}
-                            </li>
-                        </ul>
-                    </div> -->
-                </div>
+            <div class="decide-btns">
+            <button type="button" class="btn btn-success" (click)="onClickAccept(appointment.transaction_id)"
+              style="font-size: 13px;">Accept</button>
+            <button type="button" class="btn btn-danger" (click)="onClickReject(appointment.transaction_id)"
+              style="font-size: 13px;">Reject</button>
             </div>
+          </div>
         </div>
-        <div class = "col-sm-4" style="padding-top:50px;padding-left: 50px">
-            <div class="card text-white bg-dark mb-3" style="width: 18rem;min-height: 200px;">
-                <div class="card-header"><h5 class="card-title">Mentor Appointments</h5></div>
-                <div class="card-body">
-                    <div *ngFor="let appointment of tutorAppointments">
-                        <div class="card-text">
-                            <h6>{{appointment.tutor.name}}</h6>
-                        </div>
-                        <p style="font-size: 14px;">Subject: {{appointment.course.subject.name}}</p>
-                        <p style="font-size: 14px;">Course: {{appointment.course.name}}</p>
-                        <p style="font-size: 14px;">Status: {{appointment.statusStr}}</p>
-                        <p style="font-size: 14px;">Date & Time: {{appointment.appointment}}</p>
-                        <hr/>
-                    </div>
-                    <!-- <div style="font-size: 12px;">
-                        <ul>
-                            <li *ngFor="let appointment of tutorAppointments">
-                                Name: {{appointment.tutor.name}} <br/>
-                                Subject: {{appointment.course.subject.name}} <br/>
-                                Course: {{appointment.course.name}} <br/>
-                                Status: {{appointment.statusStr}}<br/>
-                                Date & Time: {{appointment.appointment}} <br/>
-                            </li>
-                        </ul>
-                    </div> -->
-                </div>
-            </div>
-        </div>
-
+      </ng-container>
     </div>
+    <div class="col-sm-4">
+      <div class="display-4">
+        Student Appointments
+      </div>
+      <div *ngIf="studentAppointments == null || studentAppointments.length == 0" class="card text-white bg-dark">
+        <div class="card-header">
+          <h5 class="card-title">No Student Appointments</h5>
+        </div>
+      </div>
+      <ng-container *ngFor="let appointment of studentAppointments">
+        <div *ngIf="studentAppointments!=null && studentAppointments.length>0" class="card text-white bg-dark">
+          <div class="card-header">
+            <h5 class="card-title">{{appointment.student.name}}</h5>
+          </div>
+          <div class="card-body">
+            <p style="font-size: 14px;">Subject: {{appointment.course.subject.name}}</p>
+            <p style="font-size: 14px;">Course: {{appointment.course.name}}</p>
+            <p style="font-size: 14px;">Date & Time: {{appointment.appointment}}</p>
+            <hr />
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="col-sm-4">
+      <div class="display-4">
+        Mentor Appointments
+      </div>
+      <div *ngIf="tutorAppointments == null || tutorAppointments.length == 0" class="card text-white bg-dark">
+        <div class="card-header">
+          <h5 class="card-title">No Mentor Appointments</h5>
+        </div>
+      </div>
+      <ng-container *ngFor="let appointment of tutorAppointments">
+        <div *ngIf="tutorAppointments!=null && tutorAppointments.length>0" class="card text-white bg-dark">
+          <div class="card-header">
+            <h5 class="card-title">{{appointment.tutor.name}}</h5>
+          </div>
+          <div class="card-body">
+            <p style="font-size: 14px;">Subject: {{appointment.course.subject.name}}</p>
+            <p style="font-size: 14px;">Course: {{appointment.course.name}}</p>
+            <p style="font-size: 14px;">Status: {{appointment.statusStr}}</p>
+            <p style="font-size: 14px;">Date & Time: {{appointment.appointment}}</p>
+            <hr />
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+  </div>
 </div>
