@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse,HttpParams, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Appointment } from '../../models/appointment';
 import { Observable, throwError, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/internal/operators';
 
 
 @Injectable({
