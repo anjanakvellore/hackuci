@@ -15,14 +15,14 @@ export class TutorService {
   }
 
   public getAllSubjects(): Observable<any> {
-    const localUrl = 'http://169.234.110.139:5000/allsubjects';
+    const localUrl = 'http://169.234.106.134:5000/allsubjects';
     return this.http.get(localUrl);
 
   }
 
   // @ts-ignore
   public submitChanges(courseId: string, date: string): Observable<any> {
-    const localUrl = 'http://169.234.110.139:5000/RegisterForTutor';
+    const localUrl = 'http://169.234.106.134:5000/RegisterForTutor';
     const formData = new FormData();
     formData.append('course_id', courseId);
     formData.append('tutor_id', this.profileService.profileDetails.user_id);
@@ -31,7 +31,7 @@ export class TutorService {
   }
 
   sendAppointmentStatus(saveObj: SaveAppointment) {
-    const localUrl = 'http://169.234.110.139:5000/RegisterForCourse';
+    const localUrl = 'http://169.234.106.134:5000/RegisterForCourse';
     // let formData = new FormData();
     // formData.append('transaction_id', transaction_id);
     // formData.append('status', status);

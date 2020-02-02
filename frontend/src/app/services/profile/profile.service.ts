@@ -11,7 +11,8 @@ export class ProfileService {
   rootURL: string;
   profileDetails: ProfileDetails;
   constructor(private http: HttpClient) {
-    this.rootURL = 'http://169.234.110.139:5000';
+    //this.rootURL = 'http://169.234.106.134:5000';
+    this.rootURL = 'http://169.234.106.134:5000';
     this.getUserDataFromLocalStorage();
   }
 
@@ -24,13 +25,13 @@ export class ProfileService {
   getTutorAppointments():Observable<any> {
     let formData = new FormData();
     formData.append("student_id",this.profileDetails.user_id);
-    const localUrl = "http://169.234.110.139:5000/tutors";
+    const localUrl = this.rootURL+'/tutors';
     return this.http.post(localUrl, formData);
   }
  
 
   getStudentAppointments():Observable<any> {
-    const localUrl = 'http://169.234.110.139:5000/students';
+    const localUrl = this.rootURL+'/students';
     let formData = new FormData();
     formData.append("tutor_id",this.profileDetails.user_id);
     return this.http.post(localUrl,formData);

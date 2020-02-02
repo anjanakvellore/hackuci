@@ -13,7 +13,7 @@ export class LearnService {
   constructor(private http: HttpClient, private profileService: ProfileService) {
   }
 
-  url = 'http://169.234.110.139:5000';
+  url = 'http://169.234.106.134:5000';
 
   public getAllTutors() {
     return this.http.get(`${this.url}/alltutors`).pipe(
