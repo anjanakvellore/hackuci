@@ -1,24 +1,24 @@
-<div>
-  <div>
+<div class="h-100">
+  <div style="height: 90px;">
     <app-navbar></app-navbar>
   </div>
-  <div>
-    <div style="padding-top: 15px; padding-left: 25px;">
-      <div class="row" style="text-align: center;">
+  <div style="height: calc(100% - 90px);">
+    <div style="padding: 0 60px">
+      <div class="row no-gutters" style="text-align: center;">
         <div class="col-sm-4">
-          Subjects
+          <div class="display-4">Subjects</div>
         </div>
         <div class="col-sm-4">
-          Courses
+          <div class="display-4">Courses</div>
         </div>
         <div class="col-sm-4">
-          Availability
+          <div class="display-4">Availability</div>
         </div>
       </div>
     </div>
-    <form style="padding: 10 px;">
+    <form style="height: calc(100% - 215px); overflow-y: auto;">
       <ng-container *ngFor="let row of mentorAvailability;let i=index">
-        <div class="row" *ngIf="!row.deleted" style="padding: 10px;" (click)="onRowClick(i)">
+        <div class="row no-gutters" *ngIf="!row.deleted" style="display: flex; height: fit-content; padding: 0 60px; overflow-y: auto;" (click)="onRowClick(i)">
           <div class="form-group" class=col-sm-4>
             <!-- <label for="subjects">Subjects</label> -->
             <select class="form-control" id="subjects" [(ngModel)]="mentorAvailability[i].selectedSubject"
@@ -37,19 +37,17 @@
                 {{course.name}}</option>
             </select>
           </div>
-          <div class="form-group col-sm-4">
-            <input type="date" name="fromDate-{{i}}" (change)="fromDateChange($event)"/> To
-            <input type="date" name="toDate-{{i}}" (change)="toDateChange($event)"/>
+          <div class="form-group col-sm-4" style="text-align: center;">
+            <input class="form-control" style="width: fit-content; display: inline-block;" type="date" name="fromDate-{{i}}" (change)="fromDateChange($event)"/> <span style="margin: 0 12px;">To</span>
+            <input class="form-control" style="width: fit-content; display: inline-block;" type="date" name="toDate-{{i}}" (change)="toDateChange($event)"/>
           </div>
         </div>
       </ng-container>
     </form>
-    <div class="row" style="padding: 25px;">
-      <div class="btn-group btn-group-sm" role="group">
-        <button id="btnAdd" class="btn btn-info btn-sm" (click)="onAddBtnClick()">Add</button>
-        <button id="btnDelete" class="btn btn-info btn-sm" (click)="onDeleteBtnClick()">Delete</button>
-        <button id="btnSubmit" class="btn btn-info btn-sm" (click)="onSubmitButtonClick()">Submit</button>
-      </div>
+    <div id="btns">
+        <button id="btnAdd" class="btn btn-primary" (click)="onAddBtnClick()">Add</button>
+        <button id="btnDelete" class="btn btn-danger" (click)="onDeleteBtnClick()">Delete</button>
+        <button id="btnSubmit" class="btn btn-success" (click)="onSubmitButtonClick()">Submit</button>
     </div>
   </div>
 </div>
