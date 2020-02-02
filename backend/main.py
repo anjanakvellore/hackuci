@@ -168,7 +168,7 @@ def changeTrStatus():
         send_msg(msg_body, student_dict['phone'])
     if status == 2:
         # trans_ref.add(tdict)
-        msg_body = ''.join(["Sorry, you were not sekected for the session held by ",
+        msg_body = ''.join(["Sorry, you were not selected for the session held by ",
             tutor_dict['name'],
             " for ",
             course_dict['name'],
